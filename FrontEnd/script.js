@@ -106,16 +106,20 @@ function ajoutUser (){
             // Création de la charge utile au format JSON
             const chargeUtile = JSON.stringify(userLog);
             // Appel a la fonction fetch pour envoyer toutes les informations a l'API
-            fetch("http://localhost:5678/api/users", {
+            fetch("http://localhost:5678/api/users/login", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: chargeUtile
             })
             // fonction callback pour etre sur que l'API a bien recu les informations
-            .then(response => {
-                if (response.ok) {
-                    console.log("Les informations du formulaire ont été envoyées avec succès !");
+           
+            .then (response => response.json())
+            .then (data  => {
+                if (data.token){
+                    window.localStorage.setItem("token", data.token);
+                    window.location.href = "index.html" ;  
                 } else {
+                    errorMessage.style.display = "block";
                     console.error("Erreur lors de l'envoi des informations du formulaire à l'API.");
                 }
             })
