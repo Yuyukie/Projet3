@@ -1,8 +1,9 @@
 // Fonction de vérification de champ vide
 function verifierChamp(email,password) {
     // Vérifie si la valeur de la balise est vide
-    if (email.value === ""|| password.value ==="") {
+    if (email === "" || password ==="") {
         // Si c'est le cas, renvoie false
+        console.log("champs vide")
         return false;
     }
     // Sinon, renvoie true
@@ -12,6 +13,7 @@ function verifierChamp(email,password) {
 function verifierEmail(email) {
     const emailValide = "sophie.bluel@test.tld";
     if (email !== emailValide){
+        console.log("email non valide")
         return false;
     }
     return true;
@@ -20,72 +22,72 @@ function verifierEmail(email) {
 function verifierPassword(password) {
     const passwordValide = "S0phie";
     if(password !== passwordValide){
+        console.log("password invalide")
         return false;
     }
     // Sinon, renvoie true
     return true;
 }
 
-// Fonction pour gérer la soumission du formulaire de connexion
-function gererFormulaireConnexion() {
-    // Récupération de la valeur de l'email depuis l'élément HTML correspondant
-    const baliseEmail = document.getElementById("email");
-    const email = baliseEmail.value;
-    // Récupération de la valeur du mot de passe depuis l'élément HTML correspondant
-    const balisePassword = document.getElementById("password");
-    const password = balisePassword.value;
-    // Vérification si les champs email et mot de passe sont vides
-    if (!verifierChamp(email, password)) {
-        // Affiche un message d'erreur et renvoie false si un champ est vide
-        console.log("Veuillez remplir tous les champs.");
-        return false;
-    }
+async function gererFormulaireConnexion() {
+    const formulaire = document.querySelector('.connexion-form');
+    formulaire.addEventListener('submit', async function(event) { 
+        event.preventDefault();
+        
+        const baliseEmail = document.getElementById("email");
+        const email = baliseEmail.value;
+        const balisePassword = document.getElementById("password");
+        const password = balisePassword.value;
 
-    // Vérification de la validité de l'email
-    if (!verifierEmail(email)) {
-        // Affiche un message d'erreur et renvoie false si l'email n'est pas valide
-        console.log("L'email n'est pas valide.");
-        return false;
-    }
+        if (!verifierChamp(email, password)) {
+            console.log("Veuillez remplir tous les champs.");
+            return false;
+        }
 
-    // Vérification de la longueur du mot de passe
-    if (!verifierPassword(password)) {
-        // Affiche un message d'erreur et renvoie false si le mot de passe est trop court
-        console.log("Le mot de passe n'est pas valdie.");
-        return false;
-    }
+        if (!verifierEmail(email)) {
+            console.log("L'email n'est pas valide.");
+            return false;
+        }
 
-    // Si toutes les validations sont réussies, renvoie true
-    authentificationUtilisateur(email, password)
-    baliseEmail.value = "";
-    balisePassword.value = "";
+        if (!verifierPassword(password)) {
+            console.log("Le mot de passe n'est pas valide.");
+            return false;
+        }
+        
+        const userLog = {
+            email: email,
+            motDePass: password,
+        };
+
+        await authentificationUtilisateur(userLog);
+
+        baliseEmail.value = "";
+        balisePassword.value = "";
+
+    });
 }
 
-async function authentificationUtilisateur(email, password) {
+async function authentificationUtilisateur(userLog) {
+    // Création de la charge utile au format JSON
+    const chargeUtile = JSON.stringify(userLog);
     try {
-      const response = await fetch("http://localhost:5678/api/users/login", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        }),
-      });
+        const response = await fetch("http://localhost:5678/api/users/login", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: chargeUtile
+        });
 
-      if (!response.ok) {
-        throw new Error('Échec de l\'authentification');
-      }
+        if (!response.ok) {
+            throw new Error('Échec de l\'authentification');
+        }
 
-      const data = await response.json();
-      const token = data.token;
+        const data = await response.json();
+        const token = data.token;
 
-      console.log('Authentification réussie. Token:', token);
+        console.log('Authentification réussie. Token:', token);
         window.localStorage.setItem("token", data.token);
         window.location.href = "index.html" ;
     } catch (error) {
-      console.error('Erreur lors de l\'authentification:', error.message);
+        console.error('Erreur lors de l\'authentification:', error.message);
     }
-  }
- 
+};
