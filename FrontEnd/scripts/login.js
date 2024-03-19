@@ -25,7 +25,7 @@ function verifierEmail(email) {
 // Fonction de validation du mot de passe
 function verifierPassword(password) {
     // Mot de passe valide
-    const passwordValide = "S0phie";
+    const passwordValide = "S0phie"; 
     // Vérifie si le mot de passe fourni correspond au mot de passe valide
     if(password !== passwordValide){
         return false;
@@ -35,64 +35,63 @@ function verifierPassword(password) {
 }
 
 // Fonction pour gérer le formulaire de connexion
-export function gererFormulaireConnexion() {
-    return new Promise(async (resolve, reject) => {
+function gererFormulaireConnexion() {
         try {
             // Sélectionne le formulaire de connexion
             const formulaire = document.querySelector('.connexion-form');
             // Écoute l'événement de soumission du formulaire
             formulaire.addEventListener('submit', async function(event) { 
-            // Empêche le comportement par défaut du formulaire
-            event.preventDefault();
-            // Récupère la valeur de l'email et du mot de passe depuis les balises correspondantes
-            const baliseEmail = document.getElementById("email");
-            const email = baliseEmail.value;
-            const balisePassword = document.getElementById("password");
-            const password = balisePassword.value;
-            // Vérifie si les champs email et password sont vides
-            if (!verifierChamp(email)) {
-                console.log("Veuillez remplir tous les champs.");
-                return false;
-            }
-            if (!verifierChamp(password)) {
-                console.log("Veuillez remplir tous les champs.");
-                return false;
-            }
+                // Empêche le comportement par défaut du formulaire
+                event.preventDefault();
+                // Récupère la valeur de l'email et du mot de passe depuis les balises correspondantes
+                const baliseEmail = document.getElementById("email");
+                const email = baliseEmail.value;
+                const balisePassword = document.getElementById("password");
+                const password = balisePassword.value;
+                // Vérifie si les champs email et password sont vides
+                if (!verifierChamp(email)) {
+                    console.log("Veuillez remplir tous les champs.");
+                    return false;
+                }
+                if (!verifierChamp(password)) {
+                    console.log("Veuillez remplir tous les champs.");
+                    return false;
+                }
 
-            // Vérifie si l'email est valide
-            if (!verifierEmail(email)) {
-                console.log("L'email n'est pas valide.");
-                return false;
-            }
+                // Vérifie si l'email est valide
+                if (!verifierEmail(email)) {
+                    console.log("L'email n'est pas valide.");
+                    return false;
+                }
 
-            // Vérifie si le mot de passe est valide
-            if (!verifierPassword(password)) {
-                console.log("Le mot de passe n'est pas valide.");
-                return false;
-            }
-            console.log("email");
-            console.log("password");
-            // Appelle la fonction d'authentification de l'utilisateur
-       
-            await authentificationUtilisateur(email,password);
-            resolve(); // Résout la promesse si l'authentification réussit
-            // Efface les valeurs des champs email et password après la soumission du formulaire
-            baliseEmail.value = "";
-            balisePassword.value = "";
-        });
+                // Vérifie si le mot de passe est valide
+                if (!verifierPassword(password)) {
+                    console.log("Le mot de passe n'est pas valide.");
+                    return false;
+                }
+                console.log("email");
+                console.log("password");
+                // Appelle la fonction d'authentification de l'utilisateur
+                await authentificationUtilisateur(email,password);
+                // Efface les valeurs des champs email et password après la soumission du formulaire
+                baliseEmail.value = "";
+                balisePassword.value = "";
+                 
+            });
         } catch (error) {
             console.error('Erreur lors de la gestion du formulaire de connexion:', error);
-            reject(error);
+            
         }
-    });
-}
+};
+
+
 // Fonction pour l'authentification de l'utilisateur
 async function authentificationUtilisateur(email,password) {
     // Crée un objet contenant l'email et le mot de passe
     const userLog = {
-            email: email,
-            password: password,
-        };
+        email: email,
+        password: password,
+    };
     // Création de la charge utile au format JSON
     const chargeUtile = JSON.stringify(userLog);
     try {
@@ -118,34 +117,45 @@ async function authentificationUtilisateur(email,password) {
         window.localStorage.setItem("token", data.token);
         // Redirige l'utilisateur vers la page index.html après l'authentification réussie
         window.location.href = "index.html" ;
-       
+        await executeApresAuthentification(); 
     } catch (error) {
         // Affiche une erreur en cas d'échec de l'authentification
         console.error('Erreur lors de l\'authentification:', error.message);
     }
-};
+}
 
 function cacherElements (){
-     // Sélectionne l'élément avec la classe spécifiée
-     const elements = document.querySelector(".filtres");
-     elements.style.display = 'none';
+    // Sélectionne l'élément avec la classe spécifiée
+    const elements = document.querySelector(".filtres");
+    if (elements) {
+        console.log("Éléments cibles trouvés :", elements);
+    } else {
+        console.log("Aucun élément cible trouvé.");
+    }
+    elements.style.display = 'none';
 }
 
 function afficherElements(){
     const elements = document.querySelector(".button-modal");
+    if (elements) {
+        console.log("Éléments cibles trouvés :", elements);
+    } else {
+        console.log("Aucun élément cible trouvé.");
+    }
     elements.style.display = 'flex';
 }
 
-async function executeApresAuthentification() {
-        // Une fois que l'authentification est réussie, cacher et afficher les éléments
-        window.addEventListener('load', () => {
-            // Une fois que la page est chargée, cachez et affichez les éléments
-            cacherElements();
-            afficherElements();
-        });
-    }
+// Fonction pour exécuter des actions après l'authentification
+function executeApresAuthentification() {
+    // Une fois que l'authentification est réussie, cacher et afficher les éléments
+    cacherElements();
+    afficherElements();
+}
 
 // Actions principales
-
 gererFormulaireConnexion();
-executeApresAuthentification();
+
+const filtresElement = document.querySelector('.filtres');
+const displayValue = window.getComputedStyle(filtresElement).getPropertyValue('display');
+    // Affichez la valeur de la propriété CSS display
+    console.log("La valeur de la propriété CSS display est :", displayValue);

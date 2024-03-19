@@ -17,7 +17,7 @@ async function recuperationDonnees() {
     }
     
     // Génération des projets avec les données récupérées
-    genererProjets(projets, categories);
+    genererProjets(projets, categories, "gallery");
     
     // Affichage des projets et des catégories récupérés dans la console à des fins de vérification
     console.log(projets, categories);
@@ -33,9 +33,9 @@ async function recuperationDonnees() {
 }
 
 // Fonction de génération des projets dans le DOM
-function genererProjets(projets, categories) {
+function genererProjets(projets, categories, id) {
     // Récupération de l'élément du DOM qui accueillera les projets
-    const sectionProjet = document.querySelector(".gallery");
+    const sectionProjet = document.querySelector("#" + id);
     // Supprimer tous les projets existants dans la galerie
     sectionProjet.innerHTML = '';
     // Vérification si sectionProjet n'est pas null avant d'ajouter des éléments
@@ -93,6 +93,9 @@ function filtrerProjets(categorie, projets, categories) {
     }
 }
 
+function genererProjetsModal () {
+
+}
 // Appel de la fonction de récupération des données depuis l'API
 recuperationDonnees();
 
