@@ -1,9 +1,8 @@
 // Fonction de vérification de champ vide
-function verifierChamp(email,password) {
+function verifierChamp(champs) {
     // Vérifie si la valeur de la balise est vide
-    if (email === "" || password ==="") {
+    if (champs === "") {
         // Si c'est le cas, renvoie false
-        console.log("champs vide")
         return false;
     }
     // Sinon, renvoie true
@@ -13,7 +12,6 @@ function verifierChamp(email,password) {
 function verifierEmail(email) {
     const emailValide = "sophie.bluel@test.tld";
     if (email !== emailValide){
-        console.log("email non valide")
         return false;
     }
     return true;
@@ -22,7 +20,6 @@ function verifierEmail(email) {
 function verifierPassword(password) {
     const passwordValide = "S0phie";
     if(password !== passwordValide){
-        console.log("password invalide")
         return false;
     }
     // Sinon, renvoie true
@@ -39,7 +36,11 @@ async function gererFormulaireConnexion() {
         const balisePassword = document.getElementById("password");
         const password = balisePassword.value;
 
-        if (!verifierChamp(email, password)) {
+        if (!verifierChamp(email)) {
+            console.log("Veuillez remplir tous les champs.");
+            return false;
+        }
+        if (!verifierChamp(password)) {
             console.log("Veuillez remplir tous les champs.");
             return false;
         }
@@ -71,7 +72,7 @@ async function authentificationUtilisateur(userLog) {
     // Création de la charge utile au format JSON
     const chargeUtile = JSON.stringify(userLog);
     try {
-        const response = await fetch("http://localhost:5678/api/users/login", {
+        const response = await fetch("http://localhost:5678/api/users", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: chargeUtile
@@ -91,3 +92,5 @@ async function authentificationUtilisateur(userLog) {
         console.error('Erreur lors de l\'authentification:', error.message);
     }
 };
+
+gererFormulaireConnexion();
