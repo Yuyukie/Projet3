@@ -68,7 +68,8 @@ function gererFormulaireConnexion() {
             console.log("Le mot de passe n'est pas valide.");
             return false;
         }
-        
+        console.log("email");
+        console.log("password");
         // Appelle la fonction d'authentification de l'utilisateur
         authentificationUtilisateur(email,password);
        
@@ -84,7 +85,7 @@ async function authentificationUtilisateur(email,password) {
     // Crée un objet contenant l'email et le mot de passe
     const userLog = {
             email: email,
-            motDePass: password,
+            password: password,
         };
     // Création de la charge utile au format JSON
     const chargeUtile = JSON.stringify(userLog);
