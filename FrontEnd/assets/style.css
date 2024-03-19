@@ -135,12 +135,9 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+
+.bar-choix{
+	display: flex;
 }
 /* gestion du css des filtres */
 .filtres{
@@ -168,6 +165,40 @@ li:hover {
 	background-color: #1D6154;
 	color: #FFFEF8;
 }
+/* Gestion du css du bouton d'appel à la modal*/
+.button-modal{
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 84px;
+	height: 18px;
+}
+.a-modal{
+	width: 58px;
+	text-decoration: none;
+}
+.title-modifier {
+	font-family: "Work Sans";
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16.42px;
+	text-align: center;
+}
+.fas{
+	width: 15.58px;
+	height: 15.58px;
+}
+
+
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+
 
 .gallery img {
 	width: 100%;

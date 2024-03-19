@@ -95,3 +95,4 @@ function filtrerProjets(categorie, projets, categories) {
 
 // Appel de la fonction de récupération des données depuis l'API
 recuperationDonnees();
+
