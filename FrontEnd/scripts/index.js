@@ -1,30 +1,33 @@
 // Fonction de récupération des données depuis l'API
 async function recuperationDonnees() {
-    // Récupération des projets
+    // Récupération des projets depuis l'API
     const responseProjet = await fetch("http://localhost:5678/api/works");
     const projets = await responseProjet.json();
 
-    // Récupération des catégories
+    // Récupération des catégories depuis l'API
     const responseCategorie = await fetch("http://localhost:5678/api/categories");
     const categories = await responseCategorie.json();
 
-    // Utilisation d'un Set pour stocker les identifiants des projets
+    // Utilisation d'un Set pour stocker les identifiants uniques des projets
     const idProjets = new Set();
 
-    // Ajoute un identifiants à chaque projet
+    // Ajout des identifiants de chaque projet dans le Set
     for (let i = 0; i < projets.length; i++) {
         idProjets.add(projets[i].id);
     }
+    
     // Génération des projets avec les données récupérées
     genererProjets(projets, categories);
-    // Vérification projets avec un id respectifs et sa categories attitré
+    
+    // Affichage des projets et des catégories récupérés dans la console à des fins de vérification
     console.log(projets, categories);
 
     // Ajout des écouteurs d'événements aux boutons de filtre
     const filtresButtons = document.querySelectorAll('.filtres-button');
     for (let i = 0; i < filtresButtons.length; i++) {
         filtresButtons[i].addEventListener('click', function() {
-            filtrerProjets(this.value, projets, categories); //grace a this.value on pointe sur la valeur du bouton sur lequel on a cliqué pour ensuite le compare au categorie d'objet. 
+            // Appel de la fonction pour filtrer les projets en fonction de la catégorie sélectionnée
+            filtrerProjets(this.value, projets, categories);
         });
     }
 }
@@ -35,13 +38,13 @@ function genererProjets(projets, categories) {
     const sectionProjet = document.querySelector(".gallery");
     // Supprimer tous les projets existants dans la galerie
     sectionProjet.innerHTML = '';
-    // Vérification si sectionProjet est null avant d'ajouter des éléments
+    // Vérification si sectionProjet n'est pas null avant d'ajouter des éléments
     if (sectionProjet) {
         // Création des éléments pour chaque projet
         for (let i = 0; i < projets.length; i++) {
             const projet = projets[i];
 
-            // Création d’une balise dédiée à un projet
+            // Création d’un élément pour chaque projet
             const projetElement = document.createElement("div");
             projetElement.dataset.id = projet.id;
 
@@ -67,15 +70,16 @@ function genererProjets(projets, categories) {
 
 // Fonction de filtrage des projets
 function filtrerProjets(categorie, projets, categories) {
+    // Récupération de la section contenant les projets
     const sectionProjet = document.querySelector('.gallery');
     if (sectionProjet) {
-        // Afficher tous les projets
+        // Affichage de tous les projets
         const projetElements = document.querySelectorAll('.gallery > div');
         for (let i = 0; i < projetElements.length; i++) {
             projetElements[i].style.display = 'block';
         }
 
-        // Cacher les projets qui ne correspondent pas à la catégorie sélectionnée
+        // Masquage des projets qui ne correspondent pas à la catégorie sélectionnée
         if (categorie !== 'Tous') {
             for (let i = 0; i < projets.length; i++) {
                 const projet = projets[i];
@@ -89,4 +93,5 @@ function filtrerProjets(categorie, projets, categories) {
     }
 }
 
+// Appel de la fonction de récupération des données depuis l'API
 recuperationDonnees();
