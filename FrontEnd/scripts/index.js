@@ -19,9 +19,6 @@ async function recuperationDonnees() {
     // Génération des projets avec les données récupérées
     genererProjets(projets, categories, "gallery");
     
-    // Affichage des projets et des catégories récupérés dans la console à des fins de vérification
-    console.log(projets, categories);
-
     // Ajout des écouteurs d'événements aux boutons de filtre
     const filtresButtons = document.querySelectorAll('.filtres-button');
     for (let i = 0; i < filtresButtons.length; i++) {
@@ -96,6 +93,7 @@ function filtrerProjets(categorie, projets, categories) {
 function genererProjetsModal () {
 
 }
+
 // Appel de la fonction de récupération des données depuis l'API
 recuperationDonnees();
 

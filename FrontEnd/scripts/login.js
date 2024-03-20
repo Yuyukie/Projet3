@@ -1,39 +1,3 @@
-
-
-// Fonction de vérification de champ vide
-function verifierChamp(champs) {
-    // Vérifie si la valeur de la balise est vide
-    if (champs === "") {
-        // Si c'est le cas, renvoie false
-        return false;
-    }
-    // Sinon, renvoie true
-    return true;
-}
-
-// Fonction de validation de l'email
-function verifierEmail(email) {
-    // Email valide
-    const emailValide = "sophie.bluel@test.tld";
-    // Vérifie si l'email fourni correspond à l'email valide
-    if (email !== emailValide){
-        return false;
-    }
-    return true;
-}
-
-// Fonction de validation du mot de passe
-function verifierPassword(password) {
-    // Mot de passe valide
-    const passwordValide = "S0phie"; 
-    // Vérifie si le mot de passe fourni correspond au mot de passe valide
-    if(password !== passwordValide){
-        return false;
-    }
-    // Sinon, renvoie true
-    return true;
-}
-
 // Fonction pour gérer le formulaire de connexion
 function gererFormulaireConnexion() {
         try {
@@ -76,13 +40,48 @@ function gererFormulaireConnexion() {
                 // Efface les valeurs des champs email et password après la soumission du formulaire
                 baliseEmail.value = "";
                 balisePassword.value = "";
-                 
             });
+
         } catch (error) {
             console.error('Erreur lors de la gestion du formulaire de connexion:', error);
             
-        }
+        } 
 };
+
+// Fonction de vérification de champ vide
+function verifierChamp(champs) {
+    // Vérifie si la valeur de la balise est vide
+    if (champs === "") {
+        // Si c'est le cas, renvoie false
+        return false;
+    }
+    // Sinon, renvoie true
+    return true;
+}
+
+// Fonction de validation de l'email
+function verifierEmail(email) {
+    // Email valide
+    const emailValide = "sophie.bluel@test.tld";
+    // Vérifie si l'email fourni correspond à l'email valide
+    if (email !== emailValide){
+        return false;
+    }
+    return true;
+}
+
+// Fonction de validation du mot de passe
+function verifierPassword(password) {
+    // Mot de passe valide
+    const passwordValide = "S0phie"; 
+    // Vérifie si le mot de passe fourni correspond au mot de passe valide
+    if(password !== passwordValide){
+        return false;
+    }
+    // Sinon, renvoie true
+    return true;
+}
+
 
 
 // Fonction pour l'authentification de l'utilisateur
@@ -116,46 +115,47 @@ async function authentificationUtilisateur(email,password) {
         // Enregistre le token dans le stockage local du navigateur
         window.localStorage.setItem("token", data.token);
         // Redirige l'utilisateur vers la page index.html après l'authentification réussie
-        window.location.href = "index.html" ;
-        await executeApresAuthentification(); 
+        window.location.href = "index.html" ; 
+        
+        
+        
     } catch (error) {
         // Affiche une erreur en cas d'échec de l'authentification
         console.error('Erreur lors de l\'authentification:', error.message);
     }
 }
 
-function cacherElements (){
-    // Sélectionne l'élément avec la classe spécifiée
-    const elements = document.querySelector(".filtres");
-    if (elements) {
-        console.log("Éléments cibles trouvés :", elements);
-    } else {
-        console.log("Aucun élément cible trouvé.");
+function modeEditeur () {
+    const utilisateurAuthentifier = window.localStorage.getItem("token");
+    if(utilisateurAuthentifier){
+
+        const editBar = document.querySelector(".edit-bar")
+        editBar.style.display ="flex";
+
+        const logOutLink = document.getElementById("logLink");
+        logOutLink.innerText = "logout";
+        logOutLink.href = "";
+
+        const elementsFiltres = document.querySelector(".filtres");
+        elementsFiltres.style.display = 'none';
+
+        const elementsModal = document.querySelector(".button-modal");
+        elementsModal.style.display = 'flex';
     }
-    elements.style.display = 'none';
+    const logOutLink = document.querySelector(".logLink");
+    logOutLink.addEventListener ("click", logout);
+    
+        function logout(){
+        window.localStorage.removeItem("token");
+        location.reload("index.html");
+}
 }
 
-function afficherElements(){
-    const elements = document.querySelector(".button-modal");
-    if (elements) {
-        console.log("Éléments cibles trouvés :", elements);
-    } else {
-        console.log("Aucun élément cible trouvé.");
-    }
-    elements.style.display = 'flex';
-}
-
-// Fonction pour exécuter des actions après l'authentification
-function executeApresAuthentification() {
-    // Une fois que l'authentification est réussie, cacher et afficher les éléments
-    cacherElements();
-    afficherElements();
-}
 
 // Actions principales
-gererFormulaireConnexion();
 
-const filtresElement = document.querySelector('.filtres');
-const displayValue = window.getComputedStyle(filtresElement).getPropertyValue('display');
-    // Affichez la valeur de la propriété CSS display
-    console.log("La valeur de la propriété CSS display est :", displayValue);
+gererFormulaireConnexion();
+modeEditeur();
+
+
+

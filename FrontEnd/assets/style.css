@@ -136,10 +136,44 @@ li:hover {
 	margin-bottom: 1em;
 }
 
+.header-container{
+	display: flex;
+	flex-direction: column;
+}
+.nav-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.edit-bar {	
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 1440px;
+	height: 59px;
+	background-color: black;
+	gap: 21px;
+	padding: 22px;
+}
+
+#icone-edit{
+	width: 15.58px;
+	height: 15.58px;
+	color: #fff;
+	
+}
+
+.title-edit {
+	display: flex;
+	
+	color: #fff;
+}
+/* gestion du css des filtres */
+
 .bar-choix{
 	display: flex;
 }
-/* gestion du css des filtres */
+
 .filtres{
 	display: flex;
 	justify-content: center;
