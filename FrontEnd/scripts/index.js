@@ -14,8 +14,8 @@ for (let i = 0; i < projets.length; i++) {
 }
 
 function genererProjet(){
-    let area = document.querySelector(".gallery")
-    creerItemProjets(projets, categories, area);
+    let area1 = document.querySelector(".gallery")
+    creerItemProjets(projets, categories, area1);
 }
 
 // Fonction de génération des projets dans le DOM
@@ -86,6 +86,12 @@ function filtrerProjets(categorie, projets, categories) {
     }
 }
 
+function gestionModal(){
+    fermerModal();
+    afficherModal();
+    chargerContenuModal();
+
+}
 function afficherModal (){
     const modal = document.querySelector(".modal");
     const btnModal= document.getElementById("open-modal");
@@ -116,8 +122,7 @@ function chargerContenuModal() {
 // Actions principales
 genererProjet();
 gestionFiltre();
-fermerModal();
-afficherModal();
-chargerContenuModal();
+gestionModal()
+
 
 
