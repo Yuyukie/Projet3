@@ -115,7 +115,7 @@ function chargerContenuModal() {
     const contenuModal = document.querySelector(".gallery-modal");
     // Charger le contenu de la galerie dans la modale
     contenuModal.innerHTML = contenuGalerie.innerHTML;
-
+    console.log(contenuModal) 
 }
 
 
