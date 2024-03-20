@@ -86,6 +86,33 @@ function filtrerProjets(categorie, projets, categories) {
     }
 }
 
+function modeEditeur () {
+    const utilisateurAuthentifier = window.localStorage.getItem("token");
+    if(utilisateurAuthentifier){
+
+        const editBar = document.querySelector(".edit-bar")
+        editBar.style.display ="flex";
+
+        const logOutLink = document.getElementById("logLink");
+        logOutLink.innerText = "logout";
+        logOutLink.href = "";
+
+        const elementsFiltres = document.querySelector(".filtres");
+        elementsFiltres.style.display = 'none';
+
+        const elementsModal = document.querySelector(".button-modal");
+        elementsModal.style.display = 'flex';
+    }
+    const logOutLink = document.getElementById("logLink");
+    logOutLink.addEventListener ("click", logout);
+    
+        function logout(){
+        window.localStorage.removeItem("token");
+        location.reload("index.html");
+}
+}
+
+
 function gestionModal(){
     fermerModal();
     afficherModal();
@@ -122,7 +149,8 @@ function chargerContenuModal() {
 // Actions principales
 genererProjet();
 gestionFiltre();
-gestionModal()
+gestionModal();
+modeEditeur();
 
 
 
