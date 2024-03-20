@@ -1,38 +1,27 @@
-// Fonction de récupération des données depuis l'API
-async function recuperationDonnees() {
-    // Récupération des projets depuis l'API
-    const responseProjet = await fetch("http://localhost:5678/api/works");
-    const projets = await responseProjet.json();
+// Récupération des projets depuis l'API
+const responseProjet = await fetch("http://localhost:5678/api/works");
+const projets = await responseProjet.json();
 
-    // Récupération des catégories depuis l'API
-    const responseCategorie = await fetch("http://localhost:5678/api/categories");
-    const categories = await responseCategorie.json();
+// Récupération des catégories depuis l'API
+const responseCategorie = await fetch("http://localhost:5678/api/categories");
+const categories = await responseCategorie.json();
+ 
+// Utilisation d'un Set pour stocker les identifiants uniques des projets
+const idProjets = new Set();
+// Ajout des identifiants de chaque projet dans le Set
+for (let i = 0; i < projets.length; i++) {
+    idProjets.add(projets[i].id);
+}
 
-    // Utilisation d'un Set pour stocker les identifiants uniques des projets
-    const idProjets = new Set();
-
-    // Ajout des identifiants de chaque projet dans le Set
-    for (let i = 0; i < projets.length; i++) {
-        idProjets.add(projets[i].id);
-    }
-    
-    // Génération des projets avec les données récupérées
-    genererProjets(projets, categories, "gallery");
-    
-    // Ajout des écouteurs d'événements aux boutons de filtre
-    const filtresButtons = document.querySelectorAll('.filtres-button');
-    for (let i = 0; i < filtresButtons.length; i++) {
-        filtresButtons[i].addEventListener('click', function() {
-            // Appel de la fonction pour filtrer les projets en fonction de la catégorie sélectionnée
-            filtrerProjets(this.value, projets, categories);
-        });
-    }
+function genererProjet(){
+    let area = document.querySelector(".gallery")
+    creerItemProjets(projets, categories, area);
 }
 
 // Fonction de génération des projets dans le DOM
-function genererProjets(projets, categories, id) {
+function creerItemProjets(projets, categories, area) {
     // Récupération de l'élément du DOM qui accueillera les projets
-    const sectionProjet = document.querySelector("#" + id);
+    const sectionProjet = area;
     // Supprimer tous les projets existants dans la galerie
     sectionProjet.innerHTML = '';
     // Vérification si sectionProjet n'est pas null avant d'ajouter des éléments
@@ -46,12 +35,10 @@ function genererProjets(projets, categories, id) {
             projetElement.dataset.id = projet.id;
 
             // Création des balises pour les informations du projet
-            const nomElement = document.createElement("h2");
-            nomElement.innerText = projet.title;
-
             const imageElement = document.createElement("img");
             imageElement.src = projet.imageUrl;
-
+            const nomElement = document.createElement("p");
+            nomElement.innerText = projet.title;
             // Récupération de la catégorie du projet à partir de son identifiant
             const categorie = categories.find(cat => cat.id === projet.categoryId);
 
@@ -64,7 +51,16 @@ function genererProjets(projets, categories, id) {
         }
     }
 }
-
+function gestionFiltre() {
+     // Ajout des écouteurs d'événements aux boutons de filtre
+     const filtresButtons = document.querySelectorAll('.filtres-button');
+     for (let i = 0; i < filtresButtons.length; i++) {
+         filtresButtons[i].addEventListener('click', function() {
+             // Appel de la fonction pour filtrer les projets en fonction de la catégorie sélectionnée
+             filtrerProjets(this.value, projets, categories);
+         });
+     }
+}
 // Fonction de filtrage des projets
 function filtrerProjets(categorie, projets, categories) {
     // Récupération de la section contenant les projets
@@ -90,10 +86,38 @@ function filtrerProjets(categorie, projets, categories) {
     }
 }
 
-function genererProjetsModal () {
+function afficherModal (){
+    const modal = document.querySelector(".modal");
+    const btnModal= document.getElementById("open-modal");
+    btnModal.addEventListener("click", () => {    
+        modal.style.display = "flex";
+    })
+}
+
+function fermerModal(){
+    const modal = document.querySelector(".modal");
+    const btnModal= document.getElementById("close-modal");
+    btnModal.addEventListener("click", () => {    
+        modal.style.display = "none";
+    })
+}
+
+function chargerContenuModal() {
+    // Récupérer l'élément contenant le contenu de la galerie
+    const contenuGalerie = document.querySelector("#gallery");
+    // Récupérer l'élément où le contenu sera chargé dans la modale
+    const contenuModal = document.querySelector(".gallery-modal");
+    // Charger le contenu de la galerie dans la modale
+    contenuModal.innerHTML = contenuGalerie.innerHTML;
 
 }
 
-// Appel de la fonction de récupération des données depuis l'API
-recuperationDonnees();
+
+// Actions principales
+genererProjet();
+gestionFiltre();
+fermerModal();
+afficherModal();
+chargerContenuModal();
+
 

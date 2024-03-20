@@ -227,7 +227,6 @@ li:hover {
 
 .modal {
 	position: fixed;
-	display: flex;
 	align-items: center;
 	justify-content: center;
 	display: none;
@@ -246,6 +245,13 @@ li:hover {
 	border-radius: 10px;
 }
 
+.gallery-modal{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: auto;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
 
 .gallery {
 	width: 100%;
@@ -255,15 +261,13 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-
-
 .gallery img {
 	width: 100%;
 
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -343,8 +347,6 @@ footer nav ul {
     align-items: center;
 }
 
-
-
 .connexion-text {
     width: 379px; 
     text-align: left; 
@@ -371,7 +373,6 @@ footer nav ul {
 }
 
 button[type="submit"] {
-    
     background-color: #1D6154;
     color: #fff; 
 	border: none;

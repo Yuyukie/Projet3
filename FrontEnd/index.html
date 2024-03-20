@@ -62,7 +62,7 @@
 			</div>
 			<div class="button-modal">
 				<i class="fas fa-edit"></i>
-				<a href="#modal" class="a-modal"><p>modifier</p></a>
+				<a href="#modal" id="open-modal"><p>modifier</p></a>
 			</div>
 		</div>
 		<div class="gallery" id="gallery">
@@ -117,7 +117,11 @@
  	<aside class="modal" id="modal">
 		<div class="modal-wrapper">
 			<h2>Galerie photo</h2>
-			<i class="fal fa-times"></i>
+			<button id="close-modal">
+				<i class="fas fa-times" ></i>
+			</button>
+			<div class="gallery-modal">
+			</div>
 			<p class="ligne"></p>
 			<div>
 				<a href="#modal-2" class="add-photo">Ajouter une photo</a>
