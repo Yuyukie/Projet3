@@ -14,12 +14,12 @@ for (let i = 0; i < projets.length; i++) {
 }
 
 function genererProjet(){
-    let area1 = document.querySelector(".gallery")
-    creerItemProjets(projets, categories, area1);
+    let area = document.querySelector(".gallery")
+    creerItemProjets(area);
 }
 
 // Fonction de génération des projets dans le DOM
-function creerItemProjets(projets, categories, area) {
+function creerItemProjets(area) {
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionProjet = area;
     // Supprimer tous les projets existants dans la galerie
@@ -39,9 +39,7 @@ function creerItemProjets(projets, categories, area) {
             imageElement.src = projet.imageUrl;
             const nomElement = document.createElement("p");
             nomElement.innerText = projet.title;
-            // Récupération de la catégorie du projet à partir de son identifiant
-            const categorie = categories.find(cat => cat.id === projet.categoryId);
-
+            
             // Ajout des balises au projet
             projetElement.appendChild(nomElement);
             projetElement.appendChild(imageElement);
@@ -115,15 +113,28 @@ function modeEditeur () {
 
 function gestionModal(){
     fermerModal();
-    afficherModal();
-    chargerContenuModal();
-
+    afficherModalVue1();
+    creerContenuModal();
+    afficherModalVue2 ();
 }
-function afficherModal (){
+function afficherModalVue1 (){
     const modal = document.querySelector(".modal");
     const btnModal= document.getElementById("open-modal");
     btnModal.addEventListener("click", () => {    
-        modal.style.display = "flex";
+        modal.style.display = "flex";  
+    })
+}
+
+function afficherModalVue2 (){
+    const btnModal = document.getElementById("add-photo");
+    btnModal.addEventListener("click", () => {    
+        const titleModalVue2 = document.getElementById("title-modal-vue1");
+        titleModalVue2.innerText = "Ajout photo";
+        const areaModalVue2 = document.querySelector(".gallery-modal");
+        areaModalVue2.style.display = "none"
+        const validerPhoto = document.getElementById("add-photo");
+        validerPhoto.innerText = "Valider";
+        logOutLink.href = "";
     })
 }
 
@@ -135,16 +146,48 @@ function fermerModal(){
     })
 }
 
-function chargerContenuModal() {
-    // Récupérer l'élément contenant le contenu de la galerie
-    const contenuGalerie = document.querySelector("#gallery");
-    // Récupérer l'élément où le contenu sera chargé dans la modale
-    const contenuModal = document.querySelector(".gallery-modal");
-    // Charger le contenu de la galerie dans la modale
-    contenuModal.innerHTML = contenuGalerie.innerHTML;
-    console.log(contenuModal) 
-}
+function creerContenuModal() {
+    let area = document.querySelector(".gallery-modal");
+    creerItemProjets(area);
+    
+    const elementsInternes = area.querySelectorAll('div');
 
+        for (let i = 0; i < elementsInternes.length; i++) {
+            const elementInterne = elementsInternes[i];
+            elementInterne.style.position = 'relative';
+        }
+    
+        const projetElements = document.querySelectorAll('.gallery-modal > div');
+        
+        for (let i = 0; i < projetElements.length; i++) {
+            const elementProjet = projetElements[i];
+            const paragraphe = elementProjet.querySelector('p');
+            const image = elementProjet.querySelector('img');
+            
+            if (paragraphe) {
+                paragraphe.remove();
+            }
+            
+            if (image) {
+                image.style.width = "78.12px";
+                image.style.height = "104.08px";
+                
+                const deleteIcon = document.createElement('i');
+                deleteIcon.classList.add('fas', 'fa-trash-alt'); // Ajouter les classes pour l'icône de poubelle
+
+                // Positionner l'icône poubelle
+                deleteIcon.style.position = 'absolute';
+                deleteIcon.style.top = '0';
+                deleteIcon.style.right = '0';
+                deleteIcon.style.backgroundColor = "black"
+                deleteIcon.style.color = "white"
+
+
+                // Ajouter l'icône poubelle à l'élément projet
+                elementProjet.appendChild(deleteIcon);
+            }
+        }
+}
 
 // Actions principales
 genererProjet();

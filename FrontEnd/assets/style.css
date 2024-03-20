@@ -29,8 +29,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
-	
+	line-height: 1;	
 }
 ol, ul {
 	list-style: none;
@@ -149,11 +148,11 @@ li:hover {
 	display: none;
 	justify-content: center;
 	align-items: center;
-	width: 1440px;
+	width: 1140px;
 	height: 59px;
 	background-color: black;
 	gap: 21px;
-	padding: 22px;
+	padding: 22px 0px;
 }
 
 #icone-edit{
@@ -245,14 +244,85 @@ li:hover {
 	border-radius: 10px;
 }
 
-.gallery-modal{
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: auto;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+.header-modal-wrapper {
+
+	position: relative;
+
 }
 
+.header-modal-wrapper h2 {
+position: absolute;
+font-family: "Work Sans";
+font-size: 26px;
+font-weight: 400;
+line-height: 30.5px;
+text-align: center;
+color: black;
+top: 60px;
+right: 228px;
+}
+
+#close-modal{
+	position: absolute;
+	background: none;
+	border: none;
+	top: 26px;
+	right: 30px;
+
+}
+.fa-trash-alt{
+	width: 17px;
+	height: 17px;
+	margin: 6px 4.86px 0px 0px;
+	padding: 3px 0px 0px 5px;
+	border-radius: 2px ;
+}
+
+.gallery-modal{
+	display: flex;
+	position: absolute;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 430px;
+	height: auto;
+	gap:  26.23px 9px ;
+	top: 150px;
+	right: 100px;
+	
+}
+
+.ligne {
+	position: absolute;
+	width: 420px;
+	border-bottom: 1px solid #B3B3B3;
+	top: 569px;
+	bottom: 199px;
+	right: 105px;
+}
+
+.add-photo {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color:#1D6154 ;
+	border-radius: 60px;
+	width: 237px;
+	height: 36px;
+	top: 609px ;
+	right: 198px ;
+}
+
+.add-photo a {
+	text-decoration: none;
+	color: #fff;
+	font-family: "Syne";
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+	text-align: center;
+
+}
 .gallery {
 	width: 100%;
 	display: grid;
