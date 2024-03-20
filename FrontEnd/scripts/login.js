@@ -142,7 +142,7 @@ function modeEditeur () {
         const elementsModal = document.querySelector(".button-modal");
         elementsModal.style.display = 'flex';
     }
-    const logOutLink = document.querySelector(".logLink");
+    const logOutLink = document.getElementById("logLink");
     logOutLink.addEventListener ("click", logout);
     
         function logout(){
