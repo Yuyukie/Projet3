@@ -472,29 +472,52 @@ right: 228px;
 	right: 105px;
 }
 
-.add-photo {
+
+
+#add-photo {	
 	position: absolute;
+	top: 609px ;
+	right: 198px; 
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	text-decoration: none;
 	background-color:#1D6154 ;
 	border-radius: 60px;
-	width: 237px;
-	height: 36px;
-	top: 609px ;
-	right: 198px ;
-}
-
-.add-photo a {
-	text-decoration: none;
 	color: #fff;
 	font-family: "Syne";
+	width: 237px;
+	height: 36px;
 	font-size: 14px;
 	font-weight: 700;
 	line-height: 16.8px;
 	text-align: center;
-
 }
+
+.valider {
+	position: absolute;
+	top: 609px ;
+	right: 198px ;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background-color: #A7A7A7;
+	border-radius: 60px;
+	color: #fff;
+	font-family: "Syne";
+	width: 237px;
+	height: 36px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.valider:hover {
+	background-color: #1D6154;
+}
+
 
 /*Gestion du css de la modal vue 2*/
 
@@ -524,20 +547,3 @@ right: 228px;
 	color: #B9C5CC;
 }
 
-.choix-categorie{
-	position: relative;
-}
-#boutonCategorie{
-	position: absolute;
-	width: 420px;
-	height: 51px;
-}
-
-#selectCategorie{
-	position: absolute;
-	background-color: none;
-	width: 420px;
-	height: 51px;
-	top: 0px;
-	right: 0px;
-}
