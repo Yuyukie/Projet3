@@ -519,9 +519,25 @@ right: 228px;
 	gap: 6px;
 }
 
-
-
 #upload-icone{
 	font-size: 76px;
 	color: #B9C5CC;
+}
+
+.choix-categorie{
+	position: relative;
+}
+#boutonCategorie{
+	position: absolute;
+	width: 420px;
+	height: 51px;
+}
+
+#selectCategorie{
+	position: absolute;
+	background-color: none;
+	width: 420px;
+	height: 51px;
+	top: 0px;
+	right: 0px;
 }
