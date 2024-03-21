@@ -16,12 +16,11 @@
 
 </head>
 <body>
-<header class="logged-User-head-bar">
-	<div class="edit-bar">
-		<i class="fas fa-edit fa-white," id="icone-edit"></i>
-		<p class="title-edit">Mode édition</p>
-	</div>
-		
+<div class="logged-User-head-bar">
+	<i class="fas fa-edit fa-white," id="icone-edit"></i>
+	<p class="title-edit">Mode édition</p>
+</div>
+<header>
 		<nav class="nav-container">
 			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 			<ul>
@@ -45,26 +44,88 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+					<!--------bouton open modal------->
 
-								<!--------Filtres------->>
+		<div class="project">
+			<h2>Mes Projets</h2>
+			<button class="btn-open-modal">
+				<i class="fas fa-edit"></i>
+				modifier
+			</button>
+		</div>
+						<!--------Filtres------->
 		<div class="filter-container">
-			<div class="filters">
-				<div>
 					<input type="button" value="Tous" class="filter-button">
-				</div>
-				<div>
 					<input type="button" value="Objets" class="filtrer-button">
-				</div>
-				<div>
 					<input type="button" value="Appartements" class="filtrer-button">
-				</div>
-				<div>
 					<input type="button" value="Hotels & restaurants" class="filtrer-button">
-				</div>
-			</div>
 		</div>
 
+		
+						<!--------Modale------->
+		<div>
+			<aside class="modal" id="modal">
+				<div class="modal-wrapper">
+					<div class="header-modal-wrapper">
+						<h2 id="title-modal-vue1">Galerie photo</h2>
+						<button id="close-modal">
+							<i class="fas fa-times" ></i>
+						</button>
+						<button id="return">
+							<i class="fas fa-arrow-left" ></i>
+						</button>
+					</div>
+					<div class="gallery-modal">
+					</div>
+					<div>
+						<h3>Ajout photo</h3>
+						<form id="add-project" method="post">
+							<div class="add-file">
+								<img src="" class="imagePreview" alt="Uploaded Image">
+								<i class="fa-regular fa-image"></i>
+								<input type="file"  id="fileInput" accept=".png, .jpg">
+								<p>jpg, png : 4mo max</p>
+							</div>
+							<div class=" input-form">
+								<label for="title">Titre</label>
+								<input type="text" name="name" id="title">
+							</div>
+							<div class=" input-form">
+								<label for="category">Catégorie</label>
+								<select name="name" id="category">
+									<option value=""></option>
+									<option value="Objets" id ="1">Objets</option>
+									<option value="Appartements" id ="2">Appartements</option>
+									<option value="Hôtels & restaurants" id ="3">Hôtels & restaurants</option>
+								</select>
+							</div>
+								<button class="btn-Validate">Valider</button>
+							
+						</form>
+					</div>
+					<p class="ligne"></p>
+						<button class="valider" id="add-photo" >Ajouter une photo</a>
+						<button class="valider" id="valider">Valider</a>
+
+				</div>
+			</aside>
+			<aside class="modal" id="modal">
+				<div class="modal-wrapper">
+					<div class="header-modal-wrapper">
+						<h2>Galerie photo</h2>
+						<button id="close-modal">
+							<i class="fas fa-times" ></i>
+						</button>
+					</div>
+					<div class="gallery-modal">
+					</div>
+					<p class="ligne"></p>
+					<div class="add-photo">
+						<a href="#modal-2" >Ajouter une photo</a>
+					</div>
+				</div>
+			</aside>
+		</div>
 		<div class="gallery" id="gallery">
 			<figure>
 				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
@@ -110,78 +171,8 @@
 				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
 				<figcaption>Hotel First Arte - New Delhi</figcaption>
 			</figure>
+		</div>
 	</section>
-						<!--------Modale------->>
-	<div class="button-modal">
-		<i class="fas fa-edit"></i>
-		<a href="#modal" id="open-modal"><p>modifier</p></a>
-	</div>
-	<div>
-		<aside class="modal" id="modal">
-			<div class="modal-wrapper">
-				<div class="header-modal-wrapper">
-					<h2 id="title-modal-vue1">Galerie photo</h2>
-					<button id="close-modal">
-						<i class="fas fa-times" ></i>
-					</button>
-					<button id="return">
-						<i class="fas fa-arrow-left" ></i>
-					</button>
-				</div>
-				<div class="gallery-modal">
-				</div>
-				<div>
-					<form id="uploadForm" enctype="multipart/form-data">
-						
-						<div class="container-upload">
-							<div>
-								<i class="fas fa-image" id="upload-icone" ></i>
-							</div>
-							<input type="file" id="fichier" name="fichier" accept=".jpg,.png"><br>
-							<p>jpg,pnj : 4mo max</p>
-						</div>
-						<div>
-							<label for="titre">Titre :</label><br>
-							<input type="text" id="titre" name="titre" required><br>
-						</div>
-						<div>
-							<label for="categorie">Catégorie :</label><br>
-							<div class="choix-categorie">
-								
-								<select id="selectCategorie">
-									<option value="" id="0"></option>
-									<option value="Objets" id ="1">Objets</option>
-									<option value="Appartements" id ="2">Appartements</option>
-									<option value="Hôtels & restaurants" id ="3">Hôtels & restaurants</option>
-								</select>
-							</div>
-						</div>
-					</form>
-				</div>
-				<p class="ligne"></p>
-					<button class="valider" id="add-photo" >Ajouter une photo</a>
-					<button class="valider" id="valider">Valider</a>
-
-			</div>
-		</aside>
-		<aside class="modal" id="modal">
-			<div class="modal-wrapper">
-				<div class="header-modal-wrapper">
-					<h2>Galerie photo</h2>
-					<button id="close-modal">
-						<i class="fas fa-times" ></i>
-					</button>
-				</div>
-				<div class="gallery-modal">
-				</div>
-				<p class="ligne"></p>
-				<div class="add-photo">
-					<a href="#modal-2" >Ajouter une photo</a>
-				</div>
-			</div>
-		</aside>
-	</div>
-
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>

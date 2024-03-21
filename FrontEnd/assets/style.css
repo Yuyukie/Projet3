@@ -48,18 +48,21 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
+	position: relative;
+	max-width: 1440px;
+	height: 3385px;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 
 header {
-	display: flex;
-	justify-content: space-between;
+	position: absolute;
+	width: 1140px;
 	height: 42px;
-	margin: 50px 0;
-	background-color: #FFFEF8;
+	top: 97px;
+	left: 150px;
+	
 }
 
 section {
@@ -115,28 +118,57 @@ li:hover {
 	flex: 1
 }
 #introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
+	position: absolute;
+	width: 474px;
+	height: 355px;
+	top: 231px;
+	left: 245px;
 }
 
 #introduction article {
-	flex: 1
+	position: absolute;
+	width: 404px;
+	height: 192px;
+	top: 340px;
+	left: 791px;
 }
+
 #introduction h2 {
-	margin-bottom: 1em;
+	width: 303px;
+	height: 36px;
+	top: 285px;
+	left: 791px;
 }
 
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
 
+.project {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 725px;
+	left: 624px;
+}
+
+.project h2 {
+	width: 191px;
+	height: 36px;
+	font-family: "Syne";
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 36px;
+	text-align: center;
+}
 
 #icone-edit{
+	display: none;
 	width: 15.58px;
 	height: 15.58px;
 	color: #fff;
@@ -152,6 +184,9 @@ li:hover {
 
 .gallery {
 	width: 100%;
+	position: absolute;
+	top: 900px;
+	right: 0px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
@@ -254,22 +289,21 @@ footer nav ul {
 
 .logged-User-head-bar{
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 1440px;
+	height: 59px;
+	background-color: black;
+	gap: 11.42px;
 }
+
 .nav-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
 .edit-bar {	
-	display: none;
-	justify-content: center;
-	align-items: center;
-	width: 1140px;
-	height: 59px;
-	background-color: black;
-	gap: 21px;
-	padding: 22px 0px;
+	
 }
 
 /* Gestion du css de la page login */
@@ -550,4 +584,41 @@ right: 228px;
 	font-size: 76px;
 	color: #B9C5CC;
 }
+.input-form {
+	width: 75%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-bottom: 20px;
+}
 
+.input-form label {
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	color: #3D3D3D;
+	padding-bottom: 5px;
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.input-form input, select {
+	height: 51px;
+	border: none;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.btn-validate {
+	border-radius: 60px;
+	width: 240px;
+	background-color: #1D6154;
+	color: white;
+	font-size: 14px;
+	padding: 9px 49px 9px 49px;
+	font-family: "Syne";
+	font-style: normal;
+	border: none;	
+	margin-top: 40px;
+	cursor: pointer;
+}
