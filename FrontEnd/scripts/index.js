@@ -24,7 +24,7 @@ for (let i = 0; i < categories.length; i++) {
 genererProjetDom();
 gestionFilter();
 gestionModal();
-modeEditeur();
+editorMode();
 
 
 
@@ -110,10 +110,10 @@ export function editorMode () {
         logOutLink.innerText = "logout";
         logOutLink.href = "";
 
-        const elementsFiltres = document.querySelector(".filtres");
+        const elementsFiltres = document.querySelector(".filter-container");
         elementsFiltres.style.display = 'none';
 
-        const elementsModal = document.querySelector(".button-modal");
+        const elementsModal = document.querySelector(".btn-open-modal");
         elementsModal.style.display = 'flex';
     }
     const logOutLink = document.getElementById("logLink");
@@ -125,7 +125,6 @@ export function editorMode () {
 }
 }
 
-
 function gestionModal(){
     fermerModal();
     afficherModalVue1();
@@ -133,13 +132,13 @@ function gestionModal(){
     afficherModalVue2 ();
     retourModalVue1 ();
     supprimerProjetParId();
-    genererOptionsCategorie(categories);
+   // genererOptionsCategorie(categories);
    // gestionFormAjoutProjet();   
 }
 
 function afficherModalVue1 (){
     const modal = document.querySelector(".modal");
-    const btnModal= document.getElementById("open-modal");
+    const btnModal= document.querySelector(".btn-open-modal");
     btnModal.addEventListener("click", () => {    
         modal.style.display = "flex";  
     })
@@ -155,28 +154,30 @@ function afficherModalVue2 (){
         areaModalVue2.style.display = "none"
         const validerPhoto = document.getElementById("add-photo");
         validerPhoto.style.display = "none";
-        const validerNon = document.getElementById("valider");
-        validerNon.style.display = "flex";
-        const uploadForm = document.getElementById("uploadForm");
+        const valider = document.getElementById("btn-validate");
+        valider.style.display = "flex";
+        const uploadForm = document.getElementById("add-project");
         uploadForm.style.display = "flex"
-        const iconeRetour = document.getElementById("retour");
+        const iconeRetour = document.getElementById("return");
         iconeRetour.style.display = "flex"
     })
 }
 
 function retourModalVue1 (){
-    const btnModal = document.getElementById("retour");
+    const btnModal = document.getElementById("return");
     btnModal.addEventListener("click", () => {    
         const titleModalVue2 = document.getElementById("title-modal-vue1");
         titleModalVue2.innerText = "Gallerie photo";
         const areaModalVue2 = document.querySelector(".gallery-modal");
         areaModalVue2.style.display = "flex"
         const validerPhoto = document.getElementById("add-photo");
-        validerPhoto.innerText = "Ajout photo";
+        validerPhoto.style.display = "flex";
+        const valider = document.getElementById("btn-validate");
+        valider.style.display = "none";
         validerPhoto.style.backgroundColor = "#1D6154";
-        const uploadForm = document.getElementById("uploadForm");
+        const uploadForm = document.getElementById("add-project");
         uploadForm.style.display = "none"
-        const iconeRetour = document.getElementById("retour");
+        const iconeRetour = document.getElementById("return");
         iconeRetour.style.display = "none"
     })
 }

@@ -60,6 +60,13 @@ header {
 	margin: 0px;
 }
 
+.nav-container {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+
 main {
 	margin: 50px 0px;
 }
@@ -127,10 +134,7 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -237,12 +241,246 @@ footer nav ul {
 	
 }
 
-.nav-container {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
+/* Gestion du css du bouton d'appel à la modal*/
+.project {
+	display: flex ;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 30px;
+	gap: 31px ;
 }
 
+.project h2 {
+	margin: 0px;
+}
+
+.btn-open-modal{
+	display: none;
+	justify-content: center;
+	align-items: center;
+	background: none;
+	border: none;
+	width: 84px;
+	height: 18px;
+	gap: 10px;
+}
+
+.btn-open-modal:hover {
+	cursor: pointer;
+}
+/*Gestion du css de la modal*/
+
+.modal {
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-wrapper{
+	position: absolute;
+	background-color: #fff;
+	width: 630px ;
+	height: 688px;
+	border-radius: 10px;
+}
+
+.header-modal-wrapper {
+	position: relative;
+}
+
+/*Gestion du css de la modal vue 1*/
+.header-modal-wrapper h2 {
+position: absolute;
+font-family: "Work Sans";
+font-size: 26px;
+font-weight: 400;
+line-height: 30.5px;
+text-align: center;
+color: black;
+top: 60px;
+right: 228px;
+}
+
+#close-modal{
+	position: absolute;
+	background: none;
+	border: none;
+	top: 26px;
+	right: 30px;
+
+}
+#return {
+	display: none ;
+	background: none;
+	border: none;
+	position: absolute;
+	top: 26px;
+	left: 30px;
+}
+
+.button-trash{
+	position: absolute;
+	background: none;
+	border:  none;
+	background-color: black;
+	border-radius: 2px;
+	width: 17px ;
+	height: 17px;
+	top: 6px;
+	right: 5.2px;
+	font-size: 10px;	
+}
+.fa-trash-alt{
+	position: absolute;
+	top: 3px;
+	right: 4px;
+	color: #fff;
+}
+
+.gallery-modal{
+	display: flex;
+	position: absolute;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 430px;
+	height: auto;
+	gap:  26.23px 9px ;
+	top: 150px;
+	right: 100px;
+
+}
+
+.ligne {
+	position: absolute;
+	width: 420px;
+	border-bottom: 1px solid #B3B3B3;
+	top: 569px;
+	bottom: 199px;
+	right: 105px;
+}
+
+
+
+#add-photo {	
+	position: absolute;
+	top: 609px ;
+	right: 198px; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	background-color:#1D6154 ;
+	border-radius: 60px;
+	color: #fff;
+	font-family: "Syne";
+	width: 237px;
+	height: 36px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+	text-align: center;
+}
+
+.valider {
+	position: absolute;
+	top: 609px ;
+	right: 198px ;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background-color: #A7A7A7;
+	border-radius: 60px;
+	color: #fff;
+	font-family: "Syne";
+	width: 237px;
+	height: 36px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.valider:hover {
+	background-color: #1D6154;
+}
+
+
+/*Gestion du css de la modal vue 2*/
+
+#add-project {
+	display: none;
+	position: absolute;
+	flex-direction: column;
+	align-items: center;
+	top: 126px ;
+	right: 105px;
+	gap: 20px ;
+}
+
+
+.add-file {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #E8F1F6;
+	width: 420px ;
+	height: 169px ;
+	gap: 6px;
+}
+
+.add-file i{
+	font-size: 76px;
+	color: #B9C5CC;
+}
+.input-form {
+	width: 420px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-bottom: 20px;
+}
+
+.input-form label {
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	color: #3D3D3D;
+	padding-bottom: 5px;
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.input-form input, select {
+	height: 51px;
+	border: none;
+	margin: 0px;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.btn-validate {
+	display: none;
+	justify-content: center;
+	background-color: #1D6154;
+	color: white;
+	border: none;
+	cursor: pointer;
+	font-family: "Syne";
+	font-style: normal;
+	font-size: 14px;
+	width: 240px;
+	border-radius: 60px;
+	padding: 9px 49px 9px 49px;	
+	margin-top: 40px;
+}
 
 /* Gestion du css de la page login */
 
@@ -325,238 +563,4 @@ button[type="submit"]:hover {
 	justify-content: right;
 	width: 1440px;
 	margin: 0px;
-}
-
-/* Gestion du css du bouton d'appel à la modal*/
-.button-modal{
-	display: none;
-	justify-content: center;
-	align-items: center;
-	width: 84px;
-	height: 18px;
-}
-.a-modal{
-	width: 58px;
-	text-decoration: none;
-}
-.title-modifier {
-	font-family: "Work Sans";
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 16.42px;
-	text-align: center;
-}
-.fas{
-	width: 15.58px;
-	height: 15.58px;
-}
-
-/*Gestion du css de la modal*/
-
-.modal {
-	position: fixed;
-	align-items: center;
-	justify-content: center;
-	display: none;
-	width: 100%;
-	height: 100%;
-	top: 0px;
-	left: 0px;
-	background: rgba(0, 0, 0, 0.8);
-}
-
-.modal-wrapper{
-	position: absolute;
-	background-color: #fff;
-	width: 630px ;
-	height: 688px;
-	border-radius: 10px;
-}
-
-.header-modal-wrapper {
-	position: relative;
-}
-
-/*Gestion du css de la modal vue 1*/
-.header-modal-wrapper h2 {
-position: absolute;
-font-family: "Work Sans";
-font-size: 26px;
-font-weight: 400;
-line-height: 30.5px;
-text-align: center;
-color: black;
-top: 60px;
-right: 228px;
-}
-
-#close-modal{
-	position: absolute;
-	background: none;
-	border: none;
-	top: 26px;
-	right: 30px;
-
-}
-#return {
-	display: none ;
-	background: none;
-	border: none;
-	position: absolute;
-	top: 26px;
-	left: 30px;
-}
-
-.button-trash{
-	position: absolute;
-	background: none;
-	border:  none;
-	background-color: black;
-	border-radius: 2px;
-	width: 17px ;
-	height: 17px;
-	top: 6px;
-	right: 5.2px;
-	font-size: 10px;	
-}
-.fa-trash-alt{
-	position: absolute;
-	top: 3.5px;
-	right: 1px;
-	color: #fff;
-}
-
-.gallery-modal{
-	display: flex;
-	position: absolute;
-	flex-wrap: wrap;
-	align-items: center;
-	width: 430px;
-	height: auto;
-	gap:  26.23px 9px ;
-	top: 150px;
-	right: 100px;
-
-}
-
-.ligne {
-	position: absolute;
-	width: 420px;
-	border-bottom: 1px solid #B3B3B3;
-	top: 569px;
-	bottom: 199px;
-	right: 105px;
-}
-
-
-
-#add-photo {	
-	position: absolute;
-	top: 609px ;
-	right: 198px; 
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-decoration: none;
-	background-color:#1D6154 ;
-	border-radius: 60px;
-	color: #fff;
-	font-family: "Syne";
-	width: 237px;
-	height: 36px;
-	font-size: 14px;
-	font-weight: 700;
-	line-height: 16.8px;
-	text-align: center;
-}
-
-.valider {
-	position: absolute;
-	top: 609px ;
-	right: 198px ;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	background-color: #A7A7A7;
-	border-radius: 60px;
-	color: #fff;
-	font-family: "Syne";
-	width: 237px;
-	height: 36px;
-	font-size: 14px;
-	font-weight: 700;
-	line-height: 16.8px;
-	text-align: center;
-	cursor: pointer;
-}
-
-.valider:hover {
-	background-color: #1D6154;
-}
-
-
-/*Gestion du css de la modal vue 2*/
-
-#uploadForm {
-	display: none;
-	position: absolute;
-	flex-direction: column;
-	top: 126px ;
-	right: 105px;
-	gap: 56px ;
-}
-
-
-.container-upload {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: #E8F1F6;
-	width: 420px ;
-	height: 169px ;
-	gap: 6px;
-}
-
-#upload-icone{
-	font-size: 76px;
-	color: #B9C5CC;
-}
-.input-form {
-	width: 75%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding-bottom: 20px;
-}
-
-.input-form label {
-	font-family: 'Work Sans';
-	font-weight: 500;
-	font-size: 14px;
-	color: #3D3D3D;
-	padding-bottom: 5px;
-	text-align: left;
-	margin-bottom: 10px;
-}
-
-.input-form input, select {
-	height: 51px;
-	border: none;
-	background: #FFFFFF;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-
-.btn-validate {
-	border-radius: 60px;
-	width: 240px;
-	background-color: #1D6154;
-	color: white;
-	font-size: 14px;
-	padding: 9px 49px 9px 49px;
-	font-family: "Syne";
-	font-style: normal;
-	border: none;	
-	margin-top: 40px;
-	cursor: pointer;
 }
