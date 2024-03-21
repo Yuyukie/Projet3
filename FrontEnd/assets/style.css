@@ -135,25 +135,6 @@ li:hover {
 	margin-bottom: 1em;
 }
 
-.header-container{
-	display: flex;
-	flex-direction: column;
-}
-.nav-container {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-.edit-bar {	
-	display: none;
-	justify-content: center;
-	align-items: center;
-	width: 1140px;
-	height: 59px;
-	background-color: black;
-	gap: 21px;
-	padding: 22px 0px;
-}
 
 #icone-edit{
 	width: 15.58px;
@@ -238,11 +219,11 @@ footer nav ul {
 
 /* gestion du css des filtres */
 
-.bar-choix{
+.filter-container{
 	display: flex;
 }
 
-.filtres{
+.filters{
 	display: flex;
 	justify-content: center;
 	width: 585px;
@@ -250,7 +231,7 @@ footer nav ul {
 	gap: 10px;	
 }
 
-.filtres-button {
+.filter-button {
 	background-color: #FFFEF8;
 	color: #1D6154;
 	font-weight: bold;
@@ -263,9 +244,32 @@ footer nav ul {
 	padding: 10px;
 }
 
-.filtres-button:hover {
+.filter-button:hover {
 	background-color: #1D6154;
 	color: #FFFEF8;
+}
+
+/* Gestion du CSS Edit-Mode*/
+
+
+.logged-User-head-bar{
+	display: flex;
+	flex-direction: column;
+}
+.nav-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.edit-bar {	
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 1140px;
+	height: 59px;
+	background-color: black;
+	gap: 21px;
+	padding: 22px 0px;
 }
 
 /* Gestion du css de la page login */
@@ -422,7 +426,7 @@ right: 228px;
 	right: 30px;
 
 }
-#retour {
+#return {
 	display: none ;
 	background: none;
 	border: none;

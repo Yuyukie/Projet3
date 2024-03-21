@@ -10,13 +10,13 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="scripts/index.js" defer></script>
-	<script type="module" src="scripts/modale.js" defer></script>
-	<script type="module" src="scripts/ajout-supp.js" defer></script>
+	<script src="https://kit.fontawesome.com/d3f6a1c8dd.js" crossorigin="anonymous"></script>
+	<script type="module" src="scripts/script.js" defer></script>
+	
 
 </head>
 <body>
-<header class="header-container">
+<header class="logged-User-head-bar">
 	<div class="edit-bar">
 		<i class="fas fa-edit fa-white," id="icone-edit"></i>
 		<p class="title-edit">Mode édition</p>
@@ -25,8 +25,8 @@
 		<nav class="nav-container">
 			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 			<ul>
-				<li>projets</li>
-				<li>contact</li>
+				<li><a href="index.html#portfolio">projets</a></li>
+				<li><a href="index.html#contact">contact</a></li>
 				<li><a href="login.html" id="logLink">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
@@ -46,26 +46,25 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets</h2>
-		<div class="bar-choix">
-			<div class="filtres">
+
+								<!--------Filtres------->>
+		<div class="filter-container">
+			<div class="filters">
 				<div>
-					<input type="button" value="Tous" class="filtres-button">
+					<input type="button" value="Tous" class="filter-button">
 				</div>
 				<div>
-					<input type="button" value="Objets" class="filtres-button">
+					<input type="button" value="Objets" class="filtrer-button">
 				</div>
 				<div>
-					<input type="button" value="Appartements" class="filtres-button">
+					<input type="button" value="Appartements" class="filtrer-button">
 				</div>
 				<div>
-					<input type="button" value="Hotels & restaurants" class="filtres-button">
+					<input type="button" value="Hotels & restaurants" class="filtrer-button">
 				</div>
-			</div>
-			<div class="button-modal">
-				<i class="fas fa-edit"></i>
-				<a href="#modal" id="open-modal"><p>modifier</p></a>
 			</div>
 		</div>
+
 		<div class="gallery" id="gallery">
 			<figure>
 				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
@@ -111,10 +110,12 @@
 				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
 				<figcaption>Hotel First Arte - New Delhi</figcaption>
 			</figure>
-		
-		
-		
 	</section>
+						<!--------Modale------->>
+	<div class="button-modal">
+		<i class="fas fa-edit"></i>
+		<a href="#modal" id="open-modal"><p>modifier</p></a>
+	</div>
 	<div>
 		<aside class="modal" id="modal">
 			<div class="modal-wrapper">
@@ -123,7 +124,7 @@
 					<button id="close-modal">
 						<i class="fas fa-times" ></i>
 					</button>
-					<button id="retour">
+					<button id="return">
 						<i class="fas fa-arrow-left" ></i>
 					</button>
 				</div>
@@ -146,8 +147,12 @@
 						<div>
 							<label for="categorie">Catégorie :</label><br>
 							<div class="choix-categorie">
-								<button id="boutonCategorie"></button>
+								
 								<select id="selectCategorie">
+									<option value="" id="0"></option>
+									<option value="Objets" id ="1">Objets</option>
+									<option value="Appartements" id ="2">Appartements</option>
+									<option value="Hôtels & restaurants" id ="3">Hôtels & restaurants</option>
 								</select>
 							</div>
 						</div>
