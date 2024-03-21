@@ -14,14 +14,14 @@ for (let i = 0; i < projets.length; i++) {
 }
 
 // Actions principales
-genererProjet();
+genererProjetDom();
 gestionFiltre();
 gestionModal();
 modeEditeur();
 
 
 
-function genererProjet(){
+function genererProjetDom(){
     let area = document.querySelector(".gallery")
     creerItemProjets(area);
 }
@@ -122,7 +122,7 @@ function modeEditeur () {
 function gestionModal(){
     fermerModal();
     afficherModalVue1();
-    creerContenuModal();
+    genererProjetModal();
     afficherModalVue2 ();
     retourModalVue1 ();
     supprimerProjetParId();
@@ -175,7 +175,7 @@ function fermerModal(){
     })
 }
 
-function creerContenuModal() {
+function genererProjetModal() {
     let area = document.querySelector(".gallery-modal");
     creerItemProjets(area);
     
@@ -213,34 +213,44 @@ function creerContenuModal() {
 }
 
 function supprimerProjetParId() {
-    const aSupprimer = document.querySelector(".button-trash");
-    aSupprimer.addEventListener("click", (event) => {
-        event.preventDefault();
-        const parentID = event.target.parentNode.getAttribute('data-id');    
-        const urlApi = "http://localhost:5678/api/works/{id}";
-        const tokenAuth = window.localStorage.getItem("token");
-        const url = `${urlApi}`;
-        // Options de la requête DELETE
-        const options = {
-            method: 'DELETE',
-            headers: {'Authorization': `Bearer ${tokenAuth}` }
-        };
-        // Envoi de la requête DELETE
-        fetch(url, options)
-            .then(response => {
-                if (response.ok) {
-                    console.log('Le projet a été supprimé avec succès.');
-                } else {
-                    console.error('Erreur lors de la suppression du projet:', response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite lors de la connexion à l\'API:', error);
-            });
-    })
-    
-}
+    // Récupérer tous les boutons de suppression
+    const boutonsSuppression = document.querySelectorAll(".button-trash");
 
+    // Boucle for pour parcourir les boutons de suppression et ajouter des écouteurs d'événements à chacun d'eux
+    for (let i = 0; i < boutonsSuppression.length; i++) {
+        const bouton = boutonsSuppression[i];
+        bouton.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation(); // Empêcher la propagation de l'événement
+
+            const parentID = event.currentTarget.parentNode.getAttribute('data-id');
+            const urlApi = `http://localhost:5678/api/works/${parentID}`;
+            const tokenAuth = window.localStorage.getItem("token");
+            const url = `${urlApi}`;
+            // Options de la requête DELETE
+            const options = {
+                method: 'DELETE',
+                headers: {'Authorization': `Bearer ${tokenAuth}` }
+            };
+            // Envoi de la requête DELETE
+            fetch(url, options)
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Le projet a été supprimé avec succès.');
+                        // Supprimer l'élément du DOM
+                        event.currentTarget.parentNode.remove();
+                        // Empêcher la fermeture de la modal
+                        event.stopPropagation();
+                    } else {
+                        console.error('Erreur lors de la suppression du projet:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Une erreur s\'est produite lors de la connexion à l\'API:', error);
+                });     
+        });
+    }
+}
 
 
 
