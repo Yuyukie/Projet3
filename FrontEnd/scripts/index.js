@@ -13,6 +13,14 @@ for (let i = 0; i < projets.length; i++) {
     idProjets.add(projets[i].id);
 }
 
+// Actions principales
+genererProjet();
+gestionFiltre();
+gestionModal();
+modeEditeur();
+
+
+
 function genererProjet(){
     let area = document.querySelector(".gallery")
     creerItemProjets(area);
@@ -117,6 +125,7 @@ function gestionModal(){
     creerContenuModal();
     afficherModalVue2 ();
     retourModalVue1 ();
+    supprimerProjetParId();
 }
 function afficherModalVue1 (){
     const modal = document.querySelector(".modal");
@@ -192,28 +201,49 @@ function creerContenuModal() {
                 image.style.width = "78.12px";
                 image.style.height = "104.08px";
                 
+                const iconeElement = document.createElement("button");
+                iconeElement.classList.add("button-trash")
                 const deleteIcon = document.createElement('i');
                 deleteIcon.classList.add('fas', 'fa-trash-alt'); // Ajouter les classes pour l'icône de poubelle
-
-                // Positionner l'icône poubelle
-                deleteIcon.style.position = 'absolute';
-                deleteIcon.style.top = '0';
-                deleteIcon.style.right = '0';
-                deleteIcon.style.backgroundColor = "black"
-                deleteIcon.style.color = "white"
-
-
                 // Ajouter l'icône poubelle à l'élément projet
-                elementProjet.appendChild(deleteIcon);
+                elementProjet.appendChild(iconeElement);
+                iconeElement.appendChild(deleteIcon);
             }
         }
 }
 
-// Actions principales
-genererProjet();
-gestionFiltre();
-gestionModal();
-modeEditeur();
+function supprimerProjetParId() {
+    const aSupprimer = document.querySelector(".button-trash");
+    aSupprimer.addEventListener("click", (event) => {
+        event.preventDefault();
+        const parentID = event.target.parentNode.getAttribute('data-id');    
+        const urlApi = "http://localhost:5678/api/works/{id}";
+        const tokenAuth = window.localStorage.getItem("token");
+        const url = `${urlApi}`;
+        // Options de la requête DELETE
+        const options = {
+            method: 'DELETE',
+            headers: {'Authorization': `Bearer ${tokenAuth}` }
+        };
+        // Envoi de la requête DELETE
+        fetch(url, options)
+            .then(response => {
+                if (response.ok) {
+                    console.log('Le projet a été supprimé avec succès.');
+                } else {
+                    console.error('Erreur lors de la suppression du projet:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Une erreur s\'est produite lors de la connexion à l\'API:', error);
+            });
+    })
+    
+}
+
+
+
+
 
 
 
