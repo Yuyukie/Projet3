@@ -121,8 +121,35 @@
 					<button id="close-modal">
 						<i class="fas fa-times" ></i>
 					</button>
+					<button id="retour">
+						<i class="fas fa-arrow-left" ></i>
+					</button>
 				</div>
 				<div class="gallery-modal">
+				</div>
+				<div>
+					<form id="uploadForm" enctype="multipart/form-data">
+						
+						<div class="container-upload">
+							<div>
+								<i class="fas fa-image" id="upload-icone" ></i>
+							</div>
+							<input type="file" id="fichier" name="fichier" accept=".jpg,.png"><br>
+							<p>jpg,pnj : 4mo max</p>
+						</div>
+						<div>
+							<label for="titre">Titre :</label><br>
+							<input type="text" id="titre" name="titre" required><br>
+						</div>
+						<div>
+							<label for="categorie">Catégorie :</label><br>
+							<select id="categorie" name="categorie">
+								<option value="categorie1">Catégorie 1</option>
+								<option value="categorie2">Catégorie 2</option>
+								<option value="categorie3">Catégorie 3</option>
+							</select><br>
+						</div>
+					</form>
 				</div>
 				<p class="ligne"></p>
 				<div class="add-photo" >

@@ -132,3 +132,37 @@ gererFormulaireConnexion();
 
 
 
+function supprimerProjetParId(idProjet) {
+    const urlApi = 'https://api.monprojet.com';
+    const tokenAuth = 'votre_token_d_authentification'; // Remplacez ceci par votre token d'authentification
+
+    // Construction de l'URL avec l'ID du projet
+    const url = `${urlApi}/projets/${idProjet}`;
+
+    // Options de la requête DELETE
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${tokenAuth}`
+        }
+    };
+
+    // Envoi de la requête DELETE
+    fetch(url, options)
+        .then(response => {
+            if (response.ok) {
+                console.log('Le projet a été supprimé avec succès.');
+            } else {
+                console.error('Erreur lors de la suppression du projet:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Une erreur s\'est produite lors de la connexion à l\'API:', error);
+        });
+}
+
+// Exemple d'utilisation de la fonction
+const idProjet = '123456'; // Remplacez ceci par l'ID réel du projet que vous souhaitez supprimer
+supprimerProjetParId(idProjet);
+
+

@@ -116,6 +116,7 @@ function gestionModal(){
     afficherModalVue1();
     creerContenuModal();
     afficherModalVue2 ();
+    retourModalVue1 ();
 }
 function afficherModalVue1 (){
     const modal = document.querySelector(".modal");
@@ -134,7 +135,26 @@ function afficherModalVue2 (){
         areaModalVue2.style.display = "none"
         const validerPhoto = document.getElementById("add-photo");
         validerPhoto.innerText = "Valider";
-        logOutLink.href = "";
+        const uploadForm = document.getElementById("uploadForm");
+        uploadForm.style.display = "flex"
+        const iconeRetour = document.getElementById("retour");
+        iconeRetour.style.display = "flex"
+    })
+}
+
+function retourModalVue1 (){
+    const btnModal = document.getElementById("retour");
+    btnModal.addEventListener("click", () => {    
+        const titleModalVue2 = document.getElementById("title-modal-vue1");
+        titleModalVue2.innerText = "Gallerie photo";
+        const areaModalVue2 = document.querySelector(".gallery-modal");
+        areaModalVue2.style.display = "flex"
+        const validerPhoto = document.getElementById("add-photo");
+        validerPhoto.innerText = "Ajouter photo";
+        const uploadForm = document.getElementById("uploadForm");
+        uploadForm.style.display = "none"
+        const iconeRetour = document.getElementById("retour");
+        iconeRetour.style.display = "none"
     })
 }
 
