@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
 ol, ul {
 	list-style: none;
@@ -49,17 +50,21 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
+	margin: auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 0px;
+}
+
+main {
+	margin: 50px 0px;
 }
 section {
-	margin: 50px 0
+	margin: 50px 0px;
 }
 
 h1{
@@ -121,6 +126,7 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
@@ -180,9 +186,377 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+footer {
+	background-color: #fff;
+	width: 1440px;
+	height: 60px;
+}
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
 }
 
+/* gestion du css des filtres */
+
+.filter-container{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	gap: 10px;
+	margin-bottom: 50px;
+}
+
+.filter-button {
+	background-color: #FFFEF8;
+	color: #1D6154;
+	font-weight: bold;
+	height: 38px;
+	border-radius: 60px;
+	border: 1px solid #1D6154;
+	padding: 0px 20px;
+}
+
+.filter-button:hover {
+	background-color: #1D6154;
+	color: #FFFEF8;
+}
+
+/* Gestion du CSS Edit-Mode*/
+
+
+.logged-user-head-bar{
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	width: 100%;
+	height: 50px;
+	gap: 10px;
+	
+}
+
+.nav-container {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+
+/* Gestion du css de la page login */
+
+.body-login {
+	background-color: #FFFEF8;
+	height: 974px;
+}
+
+.main-login {
+	width:1140px ;
+	height:822px;
+}
+.connexion-titre {
+    font-family: 'Syne';
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 76px;
+    text-align: center;
+    color: #1D6154;
+	padding: 100px 0px 7px 0px;
+}
+
+.connexion-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.connexion-text {
+    width: 379px; 
+    text-align: left; 
+    font-family: 'Work Sans';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.42px;
+	padding: 30px 0px 7px 0px;
+}
+
+.connexion-form input[type="text"]{
+    width: 379px; 
+    height: 51px;
+	border: none;
+    box-shadow: 0px 4px 14px 0px #00000017;
+}
+.connexion-form input[type="password"]{
+	width: 379px; 
+    height: 51px;
+	border: none;
+    box-shadow: 0px 4px 14px 0px #00000017;
+	margin-bottom: 30px;
+
+}
+
+button[type="submit"] {
+    background-color: #1D6154;
+    color: #fff; 
+	border: none;
+	width: 179px;
+	height: 36px;
+    border-radius: 60px;
+    cursor: pointer;
+    font-family: 'syne';
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16.8px;
+	margin-bottom: 28px;
+}
+
+button[type="submit"]:hover {
+    background-color: #144E42;
+}
+
+.mdp-oublie{
+	display: flex;
+	justify-content: center;
+}
+
+.footer-login {
+	display: flex;
+	justify-content: right;
+	width: 1440px;
+	margin: 0px;
+}
+
+/* Gestion du css du bouton d'appel à la modal*/
+.button-modal{
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 84px;
+	height: 18px;
+}
+.a-modal{
+	width: 58px;
+	text-decoration: none;
+}
+.title-modifier {
+	font-family: "Work Sans";
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16.42px;
+	text-align: center;
+}
+.fas{
+	width: 15.58px;
+	height: 15.58px;
+}
+
+/*Gestion du css de la modal*/
+
+.modal {
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-wrapper{
+	position: absolute;
+	background-color: #fff;
+	width: 630px ;
+	height: 688px;
+	border-radius: 10px;
+}
+
+.header-modal-wrapper {
+	position: relative;
+}
+
+/*Gestion du css de la modal vue 1*/
+.header-modal-wrapper h2 {
+position: absolute;
+font-family: "Work Sans";
+font-size: 26px;
+font-weight: 400;
+line-height: 30.5px;
+text-align: center;
+color: black;
+top: 60px;
+right: 228px;
+}
+
+#close-modal{
+	position: absolute;
+	background: none;
+	border: none;
+	top: 26px;
+	right: 30px;
+
+}
+#return {
+	display: none ;
+	background: none;
+	border: none;
+	position: absolute;
+	top: 26px;
+	left: 30px;
+}
+
+.button-trash{
+	position: absolute;
+	background: none;
+	border:  none;
+	background-color: black;
+	border-radius: 2px;
+	width: 17px ;
+	height: 17px;
+	top: 6px;
+	right: 5.2px;
+	font-size: 10px;	
+}
+.fa-trash-alt{
+	position: absolute;
+	top: 3.5px;
+	right: 1px;
+	color: #fff;
+}
+
+.gallery-modal{
+	display: flex;
+	position: absolute;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 430px;
+	height: auto;
+	gap:  26.23px 9px ;
+	top: 150px;
+	right: 100px;
+
+}
+
+.ligne {
+	position: absolute;
+	width: 420px;
+	border-bottom: 1px solid #B3B3B3;
+	top: 569px;
+	bottom: 199px;
+	right: 105px;
+}
+
+
+
+#add-photo {	
+	position: absolute;
+	top: 609px ;
+	right: 198px; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	background-color:#1D6154 ;
+	border-radius: 60px;
+	color: #fff;
+	font-family: "Syne";
+	width: 237px;
+	height: 36px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+	text-align: center;
+}
+
+.valider {
+	position: absolute;
+	top: 609px ;
+	right: 198px ;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background-color: #A7A7A7;
+	border-radius: 60px;
+	color: #fff;
+	font-family: "Syne";
+	width: 237px;
+	height: 36px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.valider:hover {
+	background-color: #1D6154;
+}
+
+
+/*Gestion du css de la modal vue 2*/
+
+#uploadForm {
+	display: none;
+	position: absolute;
+	flex-direction: column;
+	top: 126px ;
+	right: 105px;
+	gap: 56px ;
+}
+
+
+.container-upload {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #E8F1F6;
+	width: 420px ;
+	height: 169px ;
+	gap: 6px;
+}
+
+#upload-icone{
+	font-size: 76px;
+	color: #B9C5CC;
+}
+.input-form {
+	width: 75%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-bottom: 20px;
+}
+
+.input-form label {
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	color: #3D3D3D;
+	padding-bottom: 5px;
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.input-form input, select {
+	height: 51px;
+	border: none;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.btn-validate {
+	border-radius: 60px;
+	width: 240px;
+	background-color: #1D6154;
+	color: white;
+	font-size: 14px;
+	padding: 9px 49px 9px 49px;
+	font-family: "Syne";
+	font-style: normal;
+	border: none;	
+	margin-top: 40px;
+	cursor: pointer;
+}

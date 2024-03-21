@@ -1,5 +1,5 @@
 // Fonction pour gérer le formulaire de connexion
-function gererFormulaireConnexion() {
+export function gererFormulaireConnexion() {
         try {
             // Sélectionne le formulaire de connexion
             const formulaire = document.querySelector('.connexion-form');

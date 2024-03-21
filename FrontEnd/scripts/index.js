@@ -22,7 +22,7 @@ for (let i = 0; i < categories.length; i++) {
 
 // Actions principales
 genererProjetDom();
-gestionFiltre();
+gestionFilter();
 gestionModal();
 modeEditeur();
 
@@ -64,9 +64,9 @@ function creerItemProjets(area) {
         }
     }
 }
-function gestionFiltre() {
+export function gestionFilter() {
      // Ajout des écouteurs d'événements aux boutons de filtre
-     const filtresButtons = document.querySelectorAll('.filtres-button');
+     const filtresButtons = document.querySelectorAll('.filter-button');
      for (let i = 0; i < filtresButtons.length; i++) {
          filtresButtons[i].addEventListener('click', function() {
              // Appel de la fonction pour filtrer les projets en fonction de la catégorie sélectionnée
@@ -99,11 +99,11 @@ function filtrerProjets(categorie, projets, categories) {
     }
 }
 
-function modeEditeur () {
+export function editorMode () {
     const utilisateurAuthentifier = window.localStorage.getItem("token");
     if(utilisateurAuthentifier){
 
-        const editBar = document.querySelector(".edit-bar")
+        const editBar = document.querySelector(".logged-user-head-bar")
         editBar.style.display ="flex";
 
         const logOutLink = document.getElementById("logLink");
