@@ -1,17 +1,17 @@
 import { cleanArea,fetchDataWorks } from "./index";
 
 function gestionModal(){
-    openModal();
+    openModal1();
     closeModal();
     createWorksModal();
-    afficherModalVue2 ();
-    retourModalVue1 ();
-    supprimerProjetParId();
-   // genererOptionsCategorie(categories);
-   // gestionFormAjoutProjet();   
+    openModal2 ();
+    returnModal1 ();
+    //supprimerProjetParId();
+    // genererOptionsCategorie(categories);
+    // gestionFormAjoutProjet();   
 }
 
-function openModal (){
+function openModal1 (){
     const modal = document.querySelector(".modal");
     const btnModal= document.querySelector(".btn-open-modal");
     btnModal.addEventListener("click", () => {    
@@ -36,45 +36,46 @@ function closeModal() {
         }
     });
 }
-function createWorksModal() {
-    let area = document.querySelector(".gallery-modal");
-    
-    const elementsInternes = area.querySelectorAll('div');
 
-        for (let i = 0; i < elementsInternes.length; i++) {
-            const elementInterne = elementsInternes[i];
-            elementInterne.style.position = 'relative';
-        }
-    
-        const projetElements = document.querySelectorAll('.gallery-modal > div');
-        
-        for (let i = 0; i < projetElements.length; i++) {
-            const elementProjet = projetElements[i];
-            const paragraphe = elementProjet.querySelector('p');
-            const image = elementProjet.querySelector('img');
-            
-            if (paragraphe) {
-                paragraphe.remove();
-            }
-            
-            if (image) {
-                image.style.width = "78.12px";
-                image.style.height = "104.08px";
-                
-                const iconeElement = document.createElement("button");
-                iconeElement.classList.add("button-trash")
-                const deleteIcon = document.createElement('i');
-                deleteIcon.classList.add('fas', 'fa-trash-alt'); // Ajouter les classes pour l'icône de poubelle
-                // Ajouter l'icône poubelle à l'élément projet
-                elementProjet.appendChild(iconeElement);
-                iconeElement.appendChild(deleteIcon);
-            }
-        }
+function createWorksModal() {
+    // Vérification si areaProject n'est pas null avant d'ajouter des éléments
+    const areaProject = document.querySelector(".gallery-modal");
+    if (areaProject) {
+        // Assurez-vous de nettoyer correctement l'élément avant d'ajouter de nouveaux éléments
+        cleanArea(areaProject);
+        // Utilisation de forEach pour parcourir les données des projets
+        fetchDataWorks()
+            .then(works => {
+                works.forEach(work => {
+                    // Création d'un élément figure pour représenter le projet
+                    const figure = document.createElement("figure");
+                    figure.classList.add(`figure-category-${work.category.id}`); // Utilisation de l'ID de la catégorie
+                    figure.dataset.id = work.id;
+
+                    // Création d'un élément img pour afficher l'image du projet
+                    const imgWorks = document.createElement("img");
+                    imgWorks.src = work.imageUrl;
+
+                    const trashIcon = document.createElement("div")
+                    trashIcon.classList.add("trash-icon")
+                    trashIcon.innerHTML= `<i class="fa-solid fa-trash-can" id="${work.id}"></i>`
+
+                    // Attache des éléments img et figcaption à l'élément figure
+                    figure.appendChild(imgWorks); 
+                    figure.appendChild(trashIcon); 
+                    // Ajout de l'élément figure à l'élément areaProject dans le DOM
+                    areaProject.appendChild(figure);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    } 
+
 }
 
 
-
-function afficherModalVue2 (){
+function openModal2 (){
     const btnModal = document.getElementById("add-photo");
     btnModal.addEventListener("click", (event) => { 
         event.preventDefault();   
@@ -93,7 +94,7 @@ function afficherModalVue2 (){
     })
 }
 
-function retourModalVue1 (){
+function returnModal1 (){
     const btnModal = document.getElementById("return");
     btnModal.addEventListener("click", () => {    
         const titleModalVue2 = document.getElementById("title-modal-vue1");
@@ -325,3 +326,5 @@ function genererOptionsCategorie(categories) {
 }
 
 // Actions principales
+
+gestionModal();
