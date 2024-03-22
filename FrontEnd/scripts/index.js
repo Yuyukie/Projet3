@@ -165,6 +165,150 @@ editorMode();
 //                                                                                       //
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+function gestionModal(){
+    openModal1();
+    closeModal();
+    createWorksModal();
+    openModal2 ();
+    returnModal1 ();
+    // genererOptionsCategorie(categories);
+    // gestionFormAjoutProjet();   
+}
 
+function openModal1 (){
+    const modal = document.querySelector(".modal");
+    const btnModal= document.querySelector(".btn-open-modal");
+    btnModal.addEventListener("click", () => {    
+        modal.style.display = "flex";  
+    })
+}
+
+function closeModal() {
+    const modal = document.querySelector(".modal");
+    const btnModal = document.getElementById("close-modal");
+    const modalContent = document.querySelector(".modal-wrapper");
+
+    // Fermer la modal lorsque le bouton est cliqué
+    btnModal.addEventListener("click", () => {    
+        modal.style.display = "none";
+    });
+
+    // Fermer la modal lorsque l'utilisateur clique en dehors du contenu
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+}
+
+function createWorksModal() {
+    // Vérification si areaProject n'est pas null avant d'ajouter des éléments
+    const areaProject = document.querySelector(".gallery-modal");
+    if (areaProject) {
+        // Assurez-vous de nettoyer correctement l'élément avant d'ajouter de nouveaux éléments
+        cleanArea(areaProject);
+        // Utilisation de forEach pour parcourir les données des projets
+        fetchDataWorks()
+            .then(works => {
+                works.forEach(work => {
+                    // Création d'un élément figure pour représenter le projet
+                    const figure = document.createElement("figure");
+                    figure.classList.add(`figure-${work.id}`); // Utilisation de work.id au lieu de worksId
+                    figure.dataset.id = work.id;
+
+                    // Création d'un élément img pour afficher l'image du projet
+                    const imgWorks = document.createElement("img");
+                    imgWorks.src = work.imageUrl;
+                    
+                    // Création de l'icône de poubelle
+                    const trashIcon = document.createElement("div");
+                    trashIcon.classList.add("trash-icon");
+                    trashIcon.innerHTML= `<i class="fa-solid fa-trash-can" id="${work.id}"></i>`;
+
+                    // Attache des éléments img et figcaption à l'élément figure
+                    figure.appendChild(imgWorks); 
+                    figure.appendChild(trashIcon); 
+                    // Ajout de l'élément figure à l'élément areaProject dans le DOM
+                    areaProject.appendChild(figure);
+
+                    trashIcon.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        deleteWorks(event, work.id); // Utilisation de work.id pour l'ID du travail
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+}
+
+function openModal2 (){
+    const btnModal = document.getElementById("add-photo");
+    btnModal.addEventListener("click", (event) => { 
+        event.preventDefault();   
+        const titleModalVue2 = document.getElementById("title-modal-vue1");
+        titleModalVue2.innerText = "Ajout photo";
+        const areaModalVue2 = document.querySelector(".gallery-modal");
+        areaModalVue2.style.display = "none"
+        const validerPhoto = document.getElementById("add-photo");
+        validerPhoto.style.display = "none";
+        const valider = document.getElementById("btn-validate");
+        valider.style.display = "flex";
+        const uploadForm = document.getElementById("add-project");
+        uploadForm.style.display = "flex"
+        const iconeRetour = document.getElementById("return");
+        iconeRetour.style.display = "flex"
+    })
+}
+
+function returnModal1 (){
+    const btnModal = document.getElementById("return");
+    btnModal.addEventListener("click", () => {    
+        const titleModalVue2 = document.getElementById("title-modal-vue1");
+        titleModalVue2.innerText = "Gallerie photo";
+        const areaModalVue2 = document.querySelector(".gallery-modal");
+        areaModalVue2.style.display = "flex"
+        const validerPhoto = document.getElementById("add-photo");
+        validerPhoto.style.display = "flex";
+        const valider = document.getElementById("btn-validate");
+        valider.style.display = "none";
+        validerPhoto.style.backgroundColor = "#1D6154";
+        const uploadForm = document.getElementById("add-project");
+        uploadForm.style.display = "none"
+        const iconeRetour = document.getElementById("return");
+        iconeRetour.style.display = "none"
+    })
+}
+
+async function deleteWorks(event, worksId) {
+    let monToken = window.localStorage.getItem('token');
+     const valideDelete = confirm("Confirmer la suppresion ?")
+     // Si confirmation :
+     if (valideDelete) {
+       try {
+         const fetchDelete = await fetch(`http://localhost:5678/api/works/${worksId}`,
+           {
+             method: "DELETE",
+             headers: {Authorization: `Bearer ${monToken}`,
+             },
+           }
+         );
+         // Si suppresion ok
+         if (fetchDelete.ok) {
+           document.querySelectorAll(`.figure-${worksId}`)
+           .forEach((figure) => figure.remove());
+           event.preventDefault();
+         }
+       } catch (error) {
+         alert('Suppression impossible, une erreur est survenue')
+       }
+   }
+ }
+
+
+// Actions principales
+
+gestionModal();
 
 

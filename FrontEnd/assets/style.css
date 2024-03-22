@@ -242,7 +242,7 @@ footer nav ul {
 }
 
 /* Gestion du css du bouton d'appel à la modal*/
-.project {
+.works {
 	display: flex ;
 	align-items: center;
 	justify-content: center;
@@ -250,7 +250,11 @@ footer nav ul {
 	gap: 31px ;
 }
 
-.project h2 {
+.gallery-modal figure {
+	position: relative;
+}
+
+.works h2 {
 	margin: 0px;
 }
 
@@ -324,23 +328,19 @@ right: 228px;
 	left: 30px;
 }
 
-.button-trash{
-	position: absolute;
-	background: none;
-	border:  none;
-	background-color: black;
+.trash-icon {
+	padding: 3px 4px;
 	border-radius: 2px;
-	width: 17px ;
-	height: 17px;
-	top: 6px;
-	right: 5.2px;
-	font-size: 10px;	
-}
-.fa-trash-alt{
 	position: absolute;
-	top: 3px;
-	right: 4px;
-	color: #fff;
+	top: 6px;
+	right: 6px;
+	background-color: #000;
+	color: white;
+	cursor: pointer;
+}
+
+.trash-icon i {
+	font-size: 90%;
 }
 
 .gallery-modal{
@@ -356,16 +356,15 @@ right: 228px;
 
 }
 
-.ligne {
-	position: absolute;
-	width: 420px;
-	border-bottom: 1px solid #B3B3B3;
-	top: 569px;
-	bottom: 199px;
-	right: 105px;
+.gallery-modal figure {
+	width: 76.86px ;
+	height: 102.57 ;
 }
 
-
+.gallery-modal figure img {
+	width: 76.86px ;
+	height: 102.57 ;
+}
 
 #add-photo {	
 	position: absolute;
@@ -414,7 +413,7 @@ right: 228px;
 
 /*Gestion du css de la modal vue 2*/
 
-#add-project {
+#add-works {
 	display: none;
 	position: absolute;
 	flex-direction: column;
