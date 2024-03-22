@@ -1,69 +1,67 @@
-// Fonction pour gérer le formulaire de connexion
-export function gererFormulaireConnexion() {
-        try {
-            // Sélectionne le formulaire de connexion
-            const formulaire = document.querySelector('.connexion-form');
-            // Écoute l'événement de soumission du formulaire
-            formulaire.addEventListener('submit', async function(event) { 
-                // Empêche le comportement par défaut du formulaire
-                event.preventDefault();
-                // Récupère la valeur de l'email et du mot de passe depuis les balises correspondantes
-                const baliseEmail = document.getElementById("email");
-                const email = baliseEmail.value;
-                const balisePassword = document.getElementById("password");
-                const password = balisePassword.value;
-                // Vérifie si les champs email et password sont vides
-                if (!verifierChamp(email)) {
-                    console.log("Veuillez remplir tous les champs.");
-                    return false;
-                }
-                if (!verifierChamp(password)) {
-                    console.log("Veuillez remplir tous les champs.");
-                    return false;
-                }
+export function loginForm() {
+    const errorMessage = document.querySelector('.error-message');
 
-                // Vérifie si l'email est valide
-                if (!verifierEmail(email)) {
-                    console.log("L'email n'est pas valide.");
-                    return false;
-                }
+    try {
+        const form = document.querySelector('.form-login');
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-                // Vérifie si le mot de passe est valide
-                if (!verifierPassword(password)) {
-                    console.log("Le mot de passe n'est pas valide.");
-                    return false;
-                }
-                console.log("email");
-                console.log("password");
-                // Appelle la fonction d'authentification de l'utilisateur
-                await authentificationUtilisateur(email,password);
-                // Efface les valeurs des champs email et password après la soumission du formulaire
-                baliseEmail.value = "";
-                balisePassword.value = "";
-            });
+            // Récupère les valeurs des champs email et password lors de la soumission du formulaire
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-        } catch (error) {
-            console.error('Erreur lors de la gestion du formulaire de connexion:', error);
-            
-        } 
-};
+            // Réinitialise le message d'erreur
+            errorMessage.style.display = 'none';
+
+            // Vérifie si les champs email et password sont vides
+            if (!verifierChamp(email)) {
+                errorMessage.textContent = "Veuillez remplir tous les champs.";
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            if (!verifierChamp(password)) {
+                errorMessage.textContent = "Veuillez remplir tous les champs.";
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            // Vérifie si l'email est valide
+            if (!verifierEmail(email)) {
+                errorMessage.textContent = "L'email n'est pas valide.";
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            // Vérifie si le mot de passe est valide
+            if (!verifierPassword(password)) {
+                errorMessage.textContent = "Le mot de passe n'est pas valide.";
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            // Appelle la fonction d'authentification de l'utilisateur
+            await authentificationUtilisateur(email, password);
+            // Efface les valeurs des champs email et password après la soumission du formulaire
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
+        });
+    } catch (error) {
+        console.error('Erreur lors de la gestion du formulaire de connexion:', error);
+    }
+}
 
 // Fonction de vérification de champ vide
-function verifierChamp(champs) {
-    // Vérifie si la valeur de la balise est vide
+function verifierChamp(champs) {   
     if (champs === "") {
-        // Si c'est le cas, renvoie false
         return false;
     }
-    // Sinon, renvoie true
     return true;
 }
 
 // Fonction de validation de l'email
 function verifierEmail(email) {
-    // Email valide
     const emailValide = "sophie.bluel@test.tld";
-    // Vérifie si l'email fourni correspond à l'email valide
     if (email !== emailValide){
         return false;
     }
@@ -72,20 +70,17 @@ function verifierEmail(email) {
 
 // Fonction de validation du mot de passe
 function verifierPassword(password) {
-    // Mot de passe valide
     const passwordValide = "S0phie"; 
-    // Vérifie si le mot de passe fourni correspond au mot de passe valide
     if(password !== passwordValide){
         return false;
     }
-    // Sinon, renvoie true
     return true;
 }
 
 
 
 // Fonction pour l'authentification de l'utilisateur
-async function authentificationUtilisateur(email,password) {
+async function authentificationUtilisateur(email,password,) {
     // Crée un objet contenant l'email et le mot de passe
     const userLog = {
         email: email,
@@ -127,6 +122,6 @@ async function authentificationUtilisateur(email,password) {
 
 // Actions principales
 
-gererFormulaireConnexion();
+loginForm();
 
 
