@@ -11,6 +11,13 @@ export function cleanArea (area){
         }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                       //
+//                              Gestion DOM tous utilisateurs                            //
+//                                                                                       //
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
 function createWorks() {
     // Vérification si areaProject n'est pas null avant d'ajouter des éléments
     const areaProject = document.querySelector(".gallery");
@@ -72,7 +79,7 @@ function gestionFilter() {
             allButton.textContent = 'Tous';
             allButton.value = 'Tous'; // La valeur 'Tous' pour afficher tous les projets
             allButton.addEventListener('click', function() {
-                filtrerProjetsParCategorie('Tous', works);
+                filterByCategory('Tous', works);
             });
             filterContainer.appendChild(allButton);
 
@@ -109,7 +116,7 @@ function filterByCategory(categoryId, works) {
 
         // Affichage des projets de la catégorie sélectionnée
         works.forEach(work => {
-            if (work.categoryId === categoryId || categoryId === 'Tous') {
+            if (work.category.id === categoryId || categoryId === 'Tous') { // Modification ici
                 const projetElement = document.querySelector(`[data-id="${work.id}"]`);
                 if (projetElement) {
                     projetElement.style.display = 'block';
@@ -145,11 +152,19 @@ function editorMode () {
 }
 }
 
+
 /// Actions principales
 
 createWorks();
 gestionFilter();
 editorMode();
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                       //
+//                                    Gestion Admin                                      //
+//                                                                                       //
+///////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
