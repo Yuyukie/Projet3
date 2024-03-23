@@ -1,4 +1,4 @@
-export function loginForm() {
+function loginForm() {
     const errorMessage = document.querySelector('.error-message');
 
     try {

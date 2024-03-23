@@ -242,7 +242,7 @@ footer nav ul {
 }
 
 /* Gestion du css du bouton d'appel à la modal*/
-.works {
+.work {
 	display: flex ;
 	align-items: center;
 	justify-content: center;
@@ -254,7 +254,7 @@ footer nav ul {
 	position: relative;
 }
 
-.works h2 {
+.work h2 {
 	margin: 0px;
 }
 
@@ -413,32 +413,38 @@ right: 228px;
 
 /*Gestion du css de la modal vue 2*/
 
-#add-works {
-	display: none;
-	position: absolute;
+#add-work {
+	display: flex;
+	width: 100%;
 	flex-direction: column;
 	align-items: center;
-	top: 126px ;
-	right: 105px;
-	gap: 20px ;
+	margin-top: 126px;
 }
 
 
 .add-file {
+	width: 75%;
+	background: #E8F1F7;
+	border-radius: 3px;
+	margin-bottom: 20px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
-	background-color: #E8F1F6;
-	width: 420px ;
-	height: 169px ;
-	gap: 6px;
+	box-sizing: border-box;
+	
 }
 
 .add-file i{
-	font-size: 76px;
 	color: #B9C5CC;
+	font-size: 76px;
+	margin: 18px 0px;
+	display: flex;
 }
+
+.add-file input {
+	display: none;
+}
+
 .input-form {
 	width: 420px;
 	display: flex;
@@ -464,6 +470,19 @@ right: 228px;
 	background: #FFFFFF;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+.label-add-photo {
+	background: #CBD6DC;
+	border: none;
+	border-radius: 50px;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	color: #306685;
+	cursor: pointer;
+	text-align: center;
+	padding: 10px 50px;
+}
 
 .btn-validate {
 	display: none;
@@ -479,6 +498,13 @@ right: 228px;
 	border-radius: 60px;
 	padding: 9px 49px 9px 49px;	
 	margin-top: 40px;
+}
+.imagePreview{
+	display: none;
+	width: 129px;
+	height: 193px;
+	object-fit: cover;
+
 }
 
 /* Gestion du css de la page login */

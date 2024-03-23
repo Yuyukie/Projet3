@@ -1,14 +1,19 @@
 // Fonction qui recupere les projets depuis l'API
-export async function fetchDataWorks() {
-            const responseProjet = await fetch("http://localhost:5678/api/works");
-            const works = await responseProjet.json();
-            return works;
-            }
+async function fetchDataWorks() {
+    const responseProjet = await fetch("http://localhost:5678/api/works");
+    const works = await responseProjet.json();
+    return works;
+    }
 
+async function fetchDataCategory() {
+    const responseProjet = await fetch("http://localhost:5678/api/categories");
+    const category = await responseProjet.json();
+    return category;
+    }
 // Fonction qui supprime le contenue d'une zone
-export function cleanArea (area){
-            area.innerHTML = "";
-        }
+function cleanArea (area){
+    area.innerHTML = "";
+    }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -162,6 +167,7 @@ editorMode();
 ///////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                       //
 //                                    Gestion Admin                                      //
+//                                  Gestion de la modale                                 //
 //                                                                                       //
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -171,8 +177,8 @@ function gestionModal(){
     createWorksModal();
     openModal2 ();
     returnModal1 ();
-    // genererOptionsCategorie(categories);
-    // gestionFormAjoutProjet();   
+    postNewWork();
+    createOptionsCategory();  
 }
 
 function openModal1 (){
@@ -243,6 +249,32 @@ function createWorksModal() {
     }
 }
 
+async function createOptionsCategory() {
+    try {
+        // Récupérer les données des catégories en utilisant la fonction fetchDataCategory
+        const categories = await fetchDataCategory();
+        
+        // Récupérer l'élément select
+        const selectCategory = document.getElementById('category');
+        // Réinitialiser le contenu du menu déroulant
+        selectCategory.innerHTML = '';
+        // Ajouter une option vide par défaut
+        const optionVide = document.createElement('option');
+        selectCategory.appendChild(optionVide);
+
+        // Générer dynamiquement les options pour chaque catégorie
+        categories.forEach(function(category) {
+            const option = document.createElement('option');
+            option.value = category.id; // Utilisation de l'identifiant unique de chaque catégorie comme valeur
+            option.textContent = category.name; // Utilisation du nom de la catégorie comme libellé
+            selectCategory.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erreur lors de la génération des options de catégorie :', error);
+    }
+}
+
+
 function openModal2 (){
     const btnModal = document.getElementById("add-photo");
     btnModal.addEventListener("click", (event) => { 
@@ -255,7 +287,7 @@ function openModal2 (){
         validerPhoto.style.display = "none";
         const valider = document.getElementById("btn-validate");
         valider.style.display = "flex";
-        const uploadForm = document.getElementById("add-project");
+        const uploadForm = document.getElementById("add-work");
         uploadForm.style.display = "flex"
         const iconeRetour = document.getElementById("return");
         iconeRetour.style.display = "flex"
@@ -274,12 +306,22 @@ function returnModal1 (){
         const valider = document.getElementById("btn-validate");
         valider.style.display = "none";
         validerPhoto.style.backgroundColor = "#1D6154";
-        const uploadForm = document.getElementById("add-project");
+        const uploadForm = document.getElementById("add-work");
         uploadForm.style.display = "none"
         const iconeRetour = document.getElementById("return");
         iconeRetour.style.display = "none"
     })
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                       //
+//                                    Gestion Admin                                      //
+//                         Gestion de la ajout/sup nouveaux projets                      //
+//                                                                                       //
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 async function deleteWorks(event, worksId) {
     let monToken = window.localStorage.getItem('token');
@@ -305,6 +347,109 @@ async function deleteWorks(event, worksId) {
        }
    }
  }
+
+
+
+ async function postNewWork() {
+    const btnValidate = document.getElementById('btn-validate');
+    const inputFile = document.getElementById('fileInput');
+    const title = document.getElementById('title').value; 
+    const selectCategory = document.getElementById('category');
+    const selectedOption = selectCategory.options[selectCategory.selectedIndex];
+    const categoryValue = selectedOption.value;
+
+    btnValidate.addEventListener('click', async (event) => {
+        event.preventDefault(); // Empêcher le comportement par défaut du lien
+
+        
+        // Valider le fichier sélectionné
+        if (inputFile.files.length === 0) {
+            alert('Veuillez sélectionner un fichier à télécharger.');
+            return;
+        }
+
+        const file = inputFile.files[0];
+        const size = file.size / (1024 * 1024); // Convertir la taille en Mo
+        const allowedFormats = ['image/jpg', 'image/jpeg', 'image/png'];
+        const fileReader = new FileReader();
+        //Lecture et traitement du nouveau fichier
+        fileReader.onload = () => { 
+          const imagePreview = document.querySelector('.image-preview')
+          const iconEditFile = document.querySelector('.fa-image')
+          const labelAddPhoto = document.querySelector('.label-add-photo')
+          const textInputFile = document.querySelector('.add-file p')
+          //Affichage du nouveau fichier
+          iconEditFile.style.display = 'none';
+          labelAddPhoto.style.display = 'none';
+          textInputFile.style.display = 'none';
+          
+          imagePreview.src = fileReader.result
+          imagePreview.style.display = 'flex';
+        }
+        fileReader.readAsDataURL(file)
+
+        if (size > 4 || !allowedFormats.includes(file.type)) {
+            alert('Le fichier sélectionné dépasse la taille maximale autorisée (4 Mo) ou le format n\'est pas pris en charge.');
+            return;
+        }
+
+        // Valider le titre
+        if (title === '') {
+            alert('Veuillez saisir un titre.');
+            return;
+        }
+
+        // Valider la catégorie
+        if (categoryValue === 'option1') {
+            alert('Veuillez sélectionner une catégorie.');
+            return;
+        }
+        
+        const postConfirmation = confirm("Voulez-vous importer votre projet ?");
+
+        if (postConfirmation) {
+            // Créer le FormData avec les informations du nouveau travail
+            const formData = new FormData();
+            formData.append('category', categoryValue);
+            formData.append('fileInput', inputFile.files[0]); // Utilisation de inputFile directement
+            formData.append('title', title);
+
+            const monToken = window.localStorage.getItem('token'); 
+
+            try {
+                const response = await fetch("http://localhost:5678/api/works", {
+                    method: "POST",
+                    headers: { accept: "application/json", Authorization: `Bearer ${monToken}` },
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    console.log(title, " ajouté !");
+                    const newWorkData = await response.json();
+                    createWorks();
+                    createWorksModal();
+                    alert('Création du travail réussie !');
+                }
+            } catch (error) {
+                console.error('Une erreur s\'est produite lors de l\'envoi du nouveau travail :', error);
+                alert('Erreur lors de l\'envoi du nouveau travail. Veuillez réessayer.');
+            }
+        } 
+    });
+
+    // Ajouter un événement change à l'élément input de type fichier pour prévisualiser l'image
+    const fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block'; // Afficher l'élément img
+        };
+        reader.readAsDataURL(file);
+    });
+}
 
 
 // Actions principales
