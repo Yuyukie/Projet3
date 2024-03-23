@@ -177,6 +177,7 @@ function gestionModal(){
     createWorksModal();
     openModal2 ();
     returnModal1 ();
+    validateFile();
     postNewWork();
     createOptionsCategory();  
 }
@@ -258,10 +259,14 @@ async function createOptionsCategory() {
         
         // Récupérer l'élément select
         const selectCategory = document.getElementById('category');
+        
         // Réinitialiser le contenu du menu déroulant
         selectCategory.innerHTML = '';
+        
         // Ajouter une option vide par défaut
         const optionVide = document.createElement('option');
+        optionVide.value = ''; // Définir la valeur de l'option vide
+        optionVide.textContent = 'Sélectionner une catégorie'; // Texte de l'option vide
         selectCategory.appendChild(optionVide);
 
         // Générer dynamiquement les options pour chaque catégorie
@@ -275,7 +280,6 @@ async function createOptionsCategory() {
         console.error('Erreur lors de la génération des options de catégorie :', error);
     }
 }
-
 
 function openModal2 (){
     const btnModal = document.getElementById("add-photo");
@@ -378,8 +382,6 @@ async function deleteWorks(event, worksId) {
         }
     }
 }
-
-
 // Ajoutez un gestionnaire d'événements à chaque élément que vous souhaitez supprimer
 document.querySelectorAll('.delete-button').forEach(button => {
     button.addEventListener('click', event => {
@@ -388,47 +390,109 @@ document.querySelectorAll('.delete-button').forEach(button => {
     });
 });
 
- async function postNewWork() {
-    const btnValidate = document.getElementById('btn-validate');
-    const inputFile = document.getElementById('fileInput');
-    const title = document.getElementById('title').value; 
-    const selectCategory = document.getElementById('category');
 
-    inputFile.addEventListener('change', addFile);
+// Fonction principale postNewWork
+async function postNewWork() {
+    const btnValidate = document.getElementById('btn-validate');
+    const file = document.getElementById('file-input');
+    const title = document.getElementById('title'); 
+    const selectCategory = document.getElementById('category');
 
     btnValidate.addEventListener('click', async (event) => {
         event.preventDefault();
-
-        const file = inputFile.files[0];
         const categoryValue = selectCategory.value;
-
+        const titleValue = title.value;
         try {
-            validateInputs(file, title, categoryValue);
-
-            const formData = new FormData();
-            formData.append('category', categoryValue);
-            formData.append('fileInput', file);
-            formData.append('title', title);
-
-            const response = await createNewWork(formData);
-
-            if (response.ok) {
-                console.log(title, " ajouté !");
-                createWorks();
-                createWorksModal();
-                alert('Création du travail réussie !');
+            validateFormInputs(titleValue, categoryValue, file);
+            if (showConfirmationDialog()) {
+                const response = await createNewWorkRequest(categoryValue, file, titleValue);
+                if (response.ok) {
+                    resetModal();
+                }
             }
         } catch (error) {
             console.error('Une erreur s\'est produite lors de l\'envoi du nouveau travail :', error);
-            alert('Erreur lors de l\'envoi du nouveau travail. Veuillez réessayer.');
         }
     });
 }
 
-function addFile(event) {
-    const file = event.target.files[0];
+function validateFormInputs(titleValue, categoryValue, file) {
+    const errorMessage = document.querySelector('.error-message');
+    errorMessage.style.display = 'none';
+    if (!titleValue || !categoryValue || !file.files[0]) {
+        errorMessage.textContent = "Veuillez remplir tous les champs.";
+        errorMessage.style.display = 'block'; // Afficher le message d'erreur
+        throw new Error('Veuillez remplir tous les champs du formulaire.');
+    } else {
+        errorMessage.style.display = 'none'; // Cacher le message d'erreur s'il est déjà affiché
+    }
+}
+
+// Fonction pour afficher une boîte de dialogue de confirmation
+function showConfirmationDialog() {
+    return confirm("Voulez-vous importer votre projet ?");
+}
+
+
+// Fonction pour créer une demande Fetch pour ajouter un nouveau travail
+async function createNewWorkRequest(categoryValue, file, titleValue) {
+    const token = window.localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('category', categoryValue);
+    formData.append('image', file.files[0]);
+    formData.append('title', titleValue);
+
+    return await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+    });
+}
+
+// Fonction pour réinitialiser la modal après l'envoi du nouveau travail
+function resetModal() {
+    createWorks();
+    createWorksModal();
+    resetModal2();
+}
+
+function validateFile() {
+    const fileInput = document.getElementById('file-input'); // Récupérer l'élément input de type file
+    // Ajout d'un écouteur d'événements pour détecter les changements dans le fichier sélectionné
+    fileInput.addEventListener('change', event => {
+        const file = event.target.files[0]; // Récupérer le fichier à partir de l'événement
+
+        try {
+            // Validation du fichier
+            if (!file) {
+                throw new Error('Veuillez sélectionner un fichier à télécharger.');
+            }
+
+            const size = file.size / (1024 * 1024);
+            const allowedFormats = ['image/jpg', 'image/jpeg', 'image/png'];
+
+            if (size > 4 || !allowedFormats.includes(file.type)) {
+                throw new Error('Le fichier sélectionné dépasse la taille maximale autorisée (4 Mo) ou le format n\'est pas pris en charge.');
+            }
+
+            // Traiter le fichier une fois qu'il est validé
+            fileReader(file);
+        } catch (error) {
+            // Gestion des erreurs de validation
+            console.error('Erreur de validation :', error.message);
+            alert(error.message);
+        }
+    });
+}
+
+// Fonction pour traiter le fichier validé
+function fileReader(file) {
     const reader = new FileReader();
 
+    // Gestionnaire de chargement du fichier
     reader.onload = () => {
         const imagePreview = document.querySelector('.image-preview');
         const iconEditFile = document.querySelector('.fa-image');
@@ -443,41 +507,9 @@ function addFile(event) {
         imagePreview.style.display = 'flex';
     };
 
+    // Lecture du contenu du fichier en tant que URL de données
     reader.readAsDataURL(file);
 }
-
-function validateInputs(file, title, categoryValue) {
-    if (!file) {
-        throw new Error('Veuillez sélectionner un fichier à télécharger.');
-    }
-
-    const size = file.size / (1024 * 1024);
-    const allowedFormats = ['image/jpg', 'image/jpeg', 'image/png'];
-
-    if (size > 4 || !allowedFormats.includes(file.type)) {
-        throw new Error('Le fichier sélectionné dépasse la taille maximale autorisée (4 Mo) ou le format n\'est pas pris en charge.');
-    }
-
-    if (!title) {
-        throw new Error('Veuillez saisir un titre.');
-    }
-
-    if (categoryValue === 'option1') {
-        throw new Error('Veuillez sélectionner une catégorie.');
-    }
-}
-
-async function createNewWork(formData) {
-    const monToken = window.localStorage.getItem('token');
-    
-    return await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: { accept: "application/json", Authorization: `Bearer ${monToken}` },
-        body: formData,
-    });
-}
-
-
 
 // Actions principales
 
