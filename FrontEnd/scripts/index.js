@@ -22,7 +22,6 @@ function cleanArea (area){
 //                                                                                       //
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
 function createWorks() {
     // Vérification si areaProject n'est pas null avant d'ajouter des éléments
     const areaProject = document.querySelector(".gallery");
@@ -110,21 +109,29 @@ function gestionFilter() {
 }
 
 function filterByCategory(categoryId, works) {
-    // Récupération de la section contenant les projets
     const sectionProjet = document.querySelector('.gallery');
     if (sectionProjet) {
-        // Affichage de tous les projets
+        console.log('Bouton filtre sélectionné :', categoryId);
+        // Masquer tous les projets par défaut
         const projetElements = document.querySelectorAll('.gallery > figure');
         projetElements.forEach(element => {
             element.style.display = 'none';
         });
 
-        // Affichage des projets de la catégorie sélectionnée
-        works.forEach(project => { // Renommer l'itérateur de la boucle
-            if (project.category.id === categoryId || categoryId === 'Tous') {
-                const projetElement = document.querySelector(`[data-id="${project.id}"]`);
+        // Afficher les projets de la catégorie sélectionnée ou tous les projets si "Tous" est sélectionné
+        works.forEach(work => {
+            const projetElement = document.querySelector(`[data-id="${work.id}"]`);
+            
+            if (categoryId === 'Tous' || work.category.id === categoryId) {
                 if (projetElement) {
-                    projetElement.style.display = 'block';
+                    projetElement.style.display = 'block'; // Afficher les projets correspondants au filtre sélectionné
+                    console.log('Projet affiché :', work.id);
+                    console.log('Projet Catégorie :', work.category.id);
+                    console.log('Projet Element :', projetElement);
+                }
+            } else {
+                if (projetElement) {
+                    projetElement.style.display = 'none'; // Masquer les projets qui ne correspondent pas à la catégorie sélectionnée
                 }
             }
         });
@@ -512,3 +519,7 @@ function fileReader(file) {
 // Actions principales
 
 gestionModal();
+
+
+
+
