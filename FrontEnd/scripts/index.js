@@ -347,10 +347,7 @@ function resetModal2() {
 
 async function deleteWorks(event, worksId) {
     let monToken = window.localStorage.getItem('token');
-    const valideDelete = confirm("Confirmer la suppression ?");
-    
-    // Si confirmation :
-    if (valideDelete) {
+    if (confirmDelete()) {
         try {
             const fetchDelete = await fetch(`http://localhost:5678/api/works/${worksId}`, {
                 method: "DELETE",
@@ -390,7 +387,9 @@ document.querySelectorAll('.delete-button').forEach(button => {
     });
 });
 
-
+function confirmDelete() {
+    return confirm("Voulez-vous supprimer votre projet ?");
+}
 // Fonction principale postNewWork
 async function postNewWork() {
     const btnValidate = document.getElementById('btn-validate');
@@ -403,9 +402,9 @@ async function postNewWork() {
         const categoryValue = selectCategory.value;
         const titleValue = title.value;
         try {
-            validateFormInputs(titleValue, categoryValue, file);
-            if (showConfirmationDialog()) {
-                const response = await createNewWorkRequest(categoryValue, file, titleValue);
+            validateInputs(titleValue, categoryValue, file);
+            if (confirmNewWork()) {
+                const response = await createNewWork(categoryValue, file, titleValue);
                 if (response.ok) {
                     resetModal();
                 }
@@ -416,7 +415,7 @@ async function postNewWork() {
     });
 }
 
-function validateFormInputs(titleValue, categoryValue, file) {
+function validateInputs(titleValue, categoryValue, file) {
     const errorMessage = document.querySelector('.error-message');
     errorMessage.style.display = 'none';
     if (!titleValue || !categoryValue || !file.files[0]) {
@@ -429,13 +428,13 @@ function validateFormInputs(titleValue, categoryValue, file) {
 }
 
 // Fonction pour afficher une boîte de dialogue de confirmation
-function showConfirmationDialog() {
+function confirmNewWork() {
     return confirm("Voulez-vous importer votre projet ?");
 }
 
 
 // Fonction pour créer une demande Fetch pour ajouter un nouveau travail
-async function createNewWorkRequest(categoryValue, file, titleValue) {
+async function createNewWork(categoryValue, file, titleValue) {
     const token = window.localStorage.getItem('token');
     const formData = new FormData();
     formData.append('category', categoryValue);
