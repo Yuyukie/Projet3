@@ -145,18 +145,22 @@ li:hover {
 
 
 .gallery {
-	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
+	grid-column-gap: 18px;
 	grid-row-gap: 20px;
+	margin: 0px 246px ;
 }
 
 .gallery figure {
 	display: block;
+	width: 310px;
+	height: 413px;
 }
 .gallery img {
 	width: 100%;
+	height: 100%;
+	object-fit: cover;
 
 }
 #contact {
@@ -168,11 +172,12 @@ li:hover {
 
 }
 #contact h2{
+	margin-top: 79px;
 	margin-bottom: 20px;
 }
 #contact form {
 	text-align: left;
-	margin-top:30px;
+	margin-top:61px;
 	display: flex;
 	flex-direction: column;
 }
