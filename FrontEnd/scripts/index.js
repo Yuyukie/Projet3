@@ -241,7 +241,6 @@ function createWorksModal() {
                     areaProject.appendChild(figure);
 
                     trashIcon.addEventListener('click', (event) => {
-                        event.preventDefault();
                         deleteWorks(event, work.id); // Utilisation de work.id pour l'ID du travail
                     });
                 });
@@ -358,13 +357,17 @@ async function deleteWorks(event, worksId) {
 
             // Si suppression OK
             if (fetchDelete.ok) {
-                // Supprimer l'élément du DOM
-                const deletedElement = document.querySelector(`.figure-${worksId}`);
-                if (deletedElement) {
-                    deletedElement.remove();
+                // Supprimer l'élément du DOM dans la modale
+                const deletedElementModal = document.querySelector(`.figure-${worksId}`);
+                if (deletedElementModal) {
+                    deletedElementModal.remove();
                 } else {
-                    console.error("Élément à supprimer non trouvé dans le DOM.");
+                    console.error("Élément à supprimer non trouvé dans la modale.");
                 }
+
+                // Mettre à jour la liste des projets dans le DOM principal
+                createWorks()
+                
                 event.preventDefault();
             } else {
                 console.error("La suppression a échoué.");
@@ -376,6 +379,14 @@ async function deleteWorks(event, worksId) {
     }
 }
 
+
+// Ajoutez un gestionnaire d'événements à chaque élément que vous souhaitez supprimer
+document.querySelectorAll('.delete-button').forEach(button => {
+    button.addEventListener('click', event => {
+        const worksId = event.target.dataset.worksId; // Obtenez l'ID de l'élément à supprimer
+        deleteWorks(event, worksId); // Appelez la fonction de suppression
+    });
+});
 
  async function postNewWork() {
     const btnValidate = document.getElementById('btn-validate');
