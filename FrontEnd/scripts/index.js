@@ -184,25 +184,28 @@ function gestionModal(){
 function openModal1 (){
     const modal = document.querySelector(".modal");
     const btnModal= document.querySelector(".btn-open-modal");
-    btnModal.addEventListener("click", () => {    
-        modal.style.display = "flex";  
+    btnModal.addEventListener("click", () => { 
+        resetModal2();   
+        modal.style.display = "flex";
+         
     })
 }
 
 function closeModal() {
     const modal = document.querySelector(".modal");
     const btnModal = document.getElementById("close-modal");
-    const modalContent = document.querySelector(".modal-wrapper");
 
     // Fermer la modal lorsque le bouton est cliqué
     btnModal.addEventListener("click", () => {    
         modal.style.display = "none";
+        resetModal2();
     });
 
     // Fermer la modal lorsque l'utilisateur clique en dehors du contenu
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
+            resetModal2();
         }
     });
 }
@@ -313,6 +316,22 @@ function returnModal1 (){
     })
 }
 
+function resetModal2() {
+        const titleModalVue2 = document.getElementById("title-modal-vue1");
+        titleModalVue2.innerText = "Gallerie photo";
+        const areaModalVue2 = document.querySelector(".gallery-modal");
+        areaModalVue2.style.display = "flex"
+        const validerPhoto = document.getElementById("add-photo");
+        validerPhoto.style.display = "flex";
+        const valider = document.getElementById("btn-validate");
+        valider.style.display = "none";
+        validerPhoto.style.backgroundColor = "#1D6154";
+        const uploadForm = document.getElementById("add-work");
+        uploadForm.style.display = "none"
+        const iconeRetour = document.getElementById("return");
+        iconeRetour.style.display = "none"
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                       //
 //                                    Gestion Admin                                      //
@@ -325,29 +344,37 @@ function returnModal1 (){
 
 async function deleteWorks(event, worksId) {
     let monToken = window.localStorage.getItem('token');
-     const valideDelete = confirm("Confirmer la suppresion ?")
-     // Si confirmation :
-     if (valideDelete) {
-       try {
-         const fetchDelete = await fetch(`http://localhost:5678/api/works/${worksId}`,
-           {
-             method: "DELETE",
-             headers: {Authorization: `Bearer ${monToken}`,
-             },
-           }
-         );
-         // Si suppresion ok
-         if (fetchDelete.ok) {
-           document.querySelectorAll(`.figure-${worksId}`)
-           .forEach((figure) => figure.remove());
-           event.preventDefault();
-         }
-       } catch (error) {
-         alert('Suppression impossible, une erreur est survenue')
-       }
-   }
- }
+    const valideDelete = confirm("Confirmer la suppression ?");
+    
+    // Si confirmation :
+    if (valideDelete) {
+        try {
+            const fetchDelete = await fetch(`http://localhost:5678/api/works/${worksId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${monToken}`,
+                },
+            });
 
+            // Si suppression OK
+            if (fetchDelete.ok) {
+                // Supprimer l'élément du DOM
+                const deletedElement = document.querySelector(`.figure-${worksId}`);
+                if (deletedElement) {
+                    deletedElement.remove();
+                } else {
+                    console.error("Élément à supprimer non trouvé dans le DOM.");
+                }
+                event.preventDefault();
+            } else {
+                console.error("La suppression a échoué.");
+            }
+        } catch (error) {
+            console.error("Une erreur s'est produite lors de la suppression :", error);
+            alert('Suppression impossible, une erreur est survenue');
+        }
+    }
+}
 
 
  async function postNewWork() {
@@ -355,101 +382,90 @@ async function deleteWorks(event, worksId) {
     const inputFile = document.getElementById('fileInput');
     const title = document.getElementById('title').value; 
     const selectCategory = document.getElementById('category');
-    const selectedOption = selectCategory.options[selectCategory.selectedIndex];
-    const categoryValue = selectedOption.value;
+
+    inputFile.addEventListener('change', addFile);
 
     btnValidate.addEventListener('click', async (event) => {
-        event.preventDefault(); // Empêcher le comportement par défaut du lien
-
-        
-        // Valider le fichier sélectionné
-        if (inputFile.files.length === 0) {
-            alert('Veuillez sélectionner un fichier à télécharger.');
-            return;
-        }
+        event.preventDefault();
 
         const file = inputFile.files[0];
-        const size = file.size / (1024 * 1024); // Convertir la taille en Mo
-        const allowedFormats = ['image/jpg', 'image/jpeg', 'image/png'];
-        const fileReader = new FileReader();
-        //Lecture et traitement du nouveau fichier
-        fileReader.onload = () => { 
-          const imagePreview = document.querySelector('.image-preview')
-          const iconEditFile = document.querySelector('.fa-image')
-          const labelAddPhoto = document.querySelector('.label-add-photo')
-          const textInputFile = document.querySelector('.add-file p')
-          //Affichage du nouveau fichier
-          iconEditFile.style.display = 'none';
-          labelAddPhoto.style.display = 'none';
-          textInputFile.style.display = 'none';
-          
-          imagePreview.src = fileReader.result
-          imagePreview.style.display = 'flex';
-        }
-        fileReader.readAsDataURL(file)
+        const categoryValue = selectCategory.value;
 
-        if (size > 4 || !allowedFormats.includes(file.type)) {
-            alert('Le fichier sélectionné dépasse la taille maximale autorisée (4 Mo) ou le format n\'est pas pris en charge.');
-            return;
-        }
+        try {
+            validateInputs(file, title, categoryValue);
 
-        // Valider le titre
-        if (title === '') {
-            alert('Veuillez saisir un titre.');
-            return;
-        }
-
-        // Valider la catégorie
-        if (categoryValue === 'option1') {
-            alert('Veuillez sélectionner une catégorie.');
-            return;
-        }
-        
-        const postConfirmation = confirm("Voulez-vous importer votre projet ?");
-
-        if (postConfirmation) {
-            // Créer le FormData avec les informations du nouveau travail
             const formData = new FormData();
             formData.append('category', categoryValue);
-            formData.append('fileInput', inputFile.files[0]); // Utilisation de inputFile directement
+            formData.append('fileInput', file);
             formData.append('title', title);
 
-            const monToken = window.localStorage.getItem('token'); 
+            const response = await createNewWork(formData);
 
-            try {
-                const response = await fetch("http://localhost:5678/api/works", {
-                    method: "POST",
-                    headers: { accept: "application/json", Authorization: `Bearer ${monToken}` },
-                    body: formData,
-                });
-
-                if (response.ok) {
-                    console.log(title, " ajouté !");
-                    const newWorkData = await response.json();
-                    createWorks();
-                    createWorksModal();
-                    alert('Création du travail réussie !');
-                }
-            } catch (error) {
-                console.error('Une erreur s\'est produite lors de l\'envoi du nouveau travail :', error);
-                alert('Erreur lors de l\'envoi du nouveau travail. Veuillez réessayer.');
+            if (response.ok) {
+                console.log(title, " ajouté !");
+                createWorks();
+                createWorksModal();
+                alert('Création du travail réussie !');
             }
-        } 
-    });
-
-    // Ajouter un événement change à l'élément input de type fichier pour prévisualiser l'image
-    const fileInput = document.getElementById('fileInput');
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const imagePreview = document.getElementById('image-preview');
-            imagePreview.src = e.target.result;
-            imagePreview.style.display = 'block'; // Afficher l'élément img
-        };
-        reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Une erreur s\'est produite lors de l\'envoi du nouveau travail :', error);
+            alert('Erreur lors de l\'envoi du nouveau travail. Veuillez réessayer.');
+        }
     });
 }
+
+function addFile(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        const imagePreview = document.querySelector('.image-preview');
+        const iconEditFile = document.querySelector('.fa-image');
+        const labelAddPhoto = document.querySelector('.label-add-photo');
+        const textInputFile = document.querySelector('.add-file p');
+
+        iconEditFile.style.display = 'none';
+        labelAddPhoto.style.display = 'none';
+        textInputFile.style.display = 'none';
+
+        imagePreview.src = reader.result;
+        imagePreview.style.display = 'flex';
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function validateInputs(file, title, categoryValue) {
+    if (!file) {
+        throw new Error('Veuillez sélectionner un fichier à télécharger.');
+    }
+
+    const size = file.size / (1024 * 1024);
+    const allowedFormats = ['image/jpg', 'image/jpeg', 'image/png'];
+
+    if (size > 4 || !allowedFormats.includes(file.type)) {
+        throw new Error('Le fichier sélectionné dépasse la taille maximale autorisée (4 Mo) ou le format n\'est pas pris en charge.');
+    }
+
+    if (!title) {
+        throw new Error('Veuillez saisir un titre.');
+    }
+
+    if (categoryValue === 'option1') {
+        throw new Error('Veuillez sélectionner une catégorie.');
+    }
+}
+
+async function createNewWork(formData) {
+    const monToken = window.localStorage.getItem('token');
+    
+    return await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: { accept: "application/json", Authorization: `Bearer ${monToken}` },
+        body: formData,
+    });
+}
+
 
 
 // Actions principales
