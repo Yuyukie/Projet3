@@ -229,7 +229,6 @@ function createWorksModal() {
                     // Création d'un élément img pour afficher l'image du projet
                     const imgWorks = document.createElement("img");
                     imgWorks.src = work.imageUrl;
-                    
                     // Création de l'icône de poubelle
                     const trashIcon = document.createElement("div");
                     trashIcon.classList.add("trash-icon");

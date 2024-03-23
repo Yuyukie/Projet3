@@ -250,9 +250,7 @@ footer nav ul {
 	gap: 31px ;
 }
 
-.gallery-modal figure {
-	position: relative;
-}
+
 
 .work h2 {
 	margin: 0px;
@@ -328,6 +326,30 @@ right: 228px;
 	left: 30px;
 }
 
+.gallery-modal{
+	display: flex;
+	position: absolute;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 430px;
+	height: auto;
+	gap:  26.23px 9px ;
+	top: 150px;
+	right: 100px;
+}
+
+.gallery-modal figure {
+	position: relative;
+	width: 76.86px ;
+	height: 102.57px ;
+}
+
+.gallery-modal figure img {
+	width: 76.86px ;
+	height: 102.57px ;
+	object-fit: cover;
+}
+
 .trash-icon {
 	padding: 3px 4px;
 	border-radius: 2px;
@@ -343,28 +365,7 @@ right: 228px;
 	font-size: 90%;
 }
 
-.gallery-modal{
-	display: flex;
-	position: absolute;
-	flex-wrap: wrap;
-	align-items: center;
-	width: 430px;
-	height: auto;
-	gap:  26.23px 9px ;
-	top: 150px;
-	right: 100px;
 
-}
-
-.gallery-modal figure {
-	width: 76.86px ;
-	height: 102.57 ;
-}
-
-.gallery-modal figure img {
-	width: 76.86px ;
-	height: 102.57 ;
-}
 
 #add-photo {	
 	position: absolute;
@@ -499,11 +500,11 @@ right: 228px;
 	padding: 9px 49px 9px 49px;	
 	margin-top: 40px;
 }
-.imagePreview{
+.image-preview{
 	display: none;
-	width: 129px;
-	height: 193px;
-	object-fit: cover;
+	max-width: 75%;
+	max-height: 100%;
+	object-fit: contain;
 
 }
 
