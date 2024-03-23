@@ -120,9 +120,9 @@ function filterByCategory(categoryId, works) {
         });
 
         // Affichage des projets de la catégorie sélectionnée
-        works.forEach(work => {
-            if (work.category.id === categoryId || categoryId === 'Tous') { // Modification ici
-                const projetElement = document.querySelector(`[data-id="${work.id}"]`);
+        works.forEach(project => { // Renommer l'itérateur de la boucle
+            if (project.category.id === categoryId || categoryId === 'Tous') {
+                const projetElement = document.querySelector(`[data-id="${project.id}"]`);
                 if (projetElement) {
                     projetElement.style.display = 'block';
                 }
@@ -512,5 +512,3 @@ function fileReader(file) {
 // Actions principales
 
 gestionModal();
-
-
