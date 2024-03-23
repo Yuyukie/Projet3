@@ -59,7 +59,8 @@ header {
 	display: flex;
 	justify-content: space-between;
 	width: 1140px;
-	margin: 50px 150px 0px 150px;
+	margin: 0px 150px 0px 150px;
+	padding: 50px 0px 0px 0px;
 }
 
 .nav-container {
@@ -287,7 +288,7 @@ footer nav ul {
 .btn-open-modal:hover {
 	cursor: pointer;
 }
-/*Gestion du css de la modal*/
+/*Gestion du css de la modal vue 1*/
 
 .modal {
 	position: fixed;
@@ -309,11 +310,7 @@ footer nav ul {
 	border-radius: 10px;
 }
 
-.header-modal-wrapper {
-	position: relative;
-}
 
-/*Gestion du css de la modal vue 1*/
 .header-modal-wrapper h2 {
 	position: absolute;
 	font-family: "Work Sans";
@@ -353,6 +350,7 @@ footer nav ul {
 	gap:  26.23px 9px ;
 	top: 150px;
 	right: 100px;
+	overflow-y: auto;
 }
 
 .gallery-modal figure {
@@ -382,48 +380,32 @@ footer nav ul {
 	font-size: 90%;
 }
 
-
-
-#add-photo {	
+.validate {	
 	position: absolute;
-	top: 609px ;
-	right: 198px; 
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-decoration: none;
-	background-color:#1D6154 ;
-	border-radius: 60px;
-	color: #fff;
-	font-family: "Syne";
-	width: 237px;
-	height: 36px;
-	font-size: 14px;
-	font-weight: 700;
-	line-height: 16.8px;
-	text-align: center;
-}
-
-.valider {
-	position: absolute;
-	top: 609px ;
-	right: 198px ;
-	display: none;
-	align-items: center;
-	justify-content: center;
-	background-color: #A7A7A7;
-	border-radius: 60px;
-	color: #fff;
-	font-family: "Syne";
-	width: 237px;
-	height: 36px;
-	font-size: 14px;
-	font-weight: 700;
-	line-height: 16.8px;
-	text-align: center;
+	background-color: #1D6154;
+	color: white;
+	border: none;
 	cursor: pointer;
+	bottom: 55px;
+	right: 198px;
+	font-family: "Syne";
+	font-style: normal;
+	font-size: 14px;
+	width: 240px;
+	border-radius: 60px;
+	padding: 9px 49px 9px 49px;	
+	margin-top: 40px;
 }
 
+
+.line {
+	position: relative;
+	top: 547px;
+	left: 105px;
+	width: 420px;
+	display: flex;
+	border-bottom: 2px solid #B3B3B3;
+}
 .valider:hover {
 	background-color: #1D6154;
 }
@@ -441,7 +423,8 @@ footer nav ul {
 
 
 .add-file {
-	width: 75%;
+	width: 67%;
+	height: 169px;
 	background: #E8F1F7;
 	border-radius: 3px;
 	margin-bottom: 20px;
@@ -455,7 +438,6 @@ footer nav ul {
 .add-file i{
 	color: #B9C5CC;
 	font-size: 76px;
-	margin: 18px 0px;
 	display: flex;
 }
 
@@ -504,11 +486,14 @@ footer nav ul {
 
 .btn-validate {
 	display: none;
+	position: relative;
 	justify-content: center;
-	background-color: #1D6154;
+	background-color: #A7A7A7;
 	color: white;
 	border: none;
 	cursor: pointer;
+	top: 15px;
+	
 	font-family: "Syne";
 	font-style: normal;
 	font-size: 14px;
@@ -516,6 +501,7 @@ footer nav ul {
 	border-radius: 60px;
 	padding: 9px 49px 9px 49px;	
 	margin-top: 40px;
+
 }
 .image-preview{
 	display: none;
@@ -529,21 +515,26 @@ footer nav ul {
 
 .container-login {
 	background-color: #FFFEF8;
-	height: 974px;
+	height:1024px;
+	margin: 0px;
+	padding: 0px;
 }
 
 .main-login {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width:1140px ;
-	height:822px;
+	height: 722px;
+	margin: 0px 150px ;
+	padding-top: 150px;
 }
 .login-title {
     font-family: 'Syne';
     font-size: 30px;
     font-weight: 700;
     line-height: 76px;
-    text-align: center;
     color: #1D6154;
-	padding: 100px 0px 7px 0px;
 }
 
 .form-login {
@@ -597,22 +588,30 @@ button[type="submit"]:hover {
     background-color: #144E42;
 }
 
-.main-login a {
+.forget-password{
 	display: flex;
 	justify-content: center;
+	text-decoration: underline;
+	color: #3D3D3D;
 }
 
 .login-footer {
 	display: flex;
 	justify-content: right;
+	align-items: center;
 	width: 1440px;
-	margin: 0px;
+	margin: 0px 147px 0px 0px;
+	
 }
 
+.login-footer ul, li {
+	margin: 0px;
+}
+	
 .error-message, .error-message-null{
 	text-align: center;
 	font-weight: bold;
 	color: red;
-	display: none;
-	margin-bottom: 30px;
+	display: flex;
+	margin-top: 30px;
 }

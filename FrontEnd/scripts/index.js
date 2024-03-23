@@ -340,7 +340,6 @@ function resetModal2() {
         const iconeRetour = document.getElementById("return");
         iconeRetour.style.display = "none"
 }
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                       //
 //                                    Gestion Admin                                      //
