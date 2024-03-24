@@ -387,7 +387,7 @@ async function deleteWorks(event, worksId) {
 
                 // Mettre à jour la liste des projets dans le DOM principal
                 createWorks()
-                
+                alert("Projet supprimé")
                 event.preventDefault();
             } else {
                 console.error("La suppression a échoué.");
@@ -398,13 +398,6 @@ async function deleteWorks(event, worksId) {
         }
     }
 }
-// Ajoutez un gestionnaire d'événements à chaque élément que vous souhaitez supprimer
-document.querySelectorAll('.delete-button').forEach(button => {
-    button.addEventListener('click', event => {
-        const worksId = event.target.dataset.worksId; // Obtenez l'ID de l'élément à supprimer
-        deleteWorks(event, worksId); // Appelez la fonction de suppression
-    });
-});
 
 function confirmDelete() {
     return confirm("Voulez-vous supprimer votre projet ?");
@@ -426,6 +419,7 @@ async function postNewWork() {
                 const response = await createNewWork(categoryValue, file, titleValue);
                 if (response.ok) {
                     resetModal();
+                    alert("Projet ajouté")
                 }
             }
         } catch (error) {
