@@ -187,7 +187,6 @@ function gestionModal(){
     validateFile();
     postNewWork();
     createOptionsCategory();  
-    disabledBtnValidate();
 }
 
 function openModal1 (){
@@ -352,6 +351,7 @@ function resetModal2() {
         labelAddPhoto.style.display = 'flex';
         const textInputFile = document.querySelector('.add-file p');
         textInputFile.style.display = 'flex';
+        disabledBtnValidate();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                       //
