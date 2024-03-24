@@ -492,7 +492,7 @@ footer nav ul {
 	color: white;
 	border: none;
 	cursor: pointer;
-	top: 15px;
+	top: 40px;
 	
 	font-family: "Syne";
 	font-style: normal;
@@ -516,7 +516,6 @@ footer nav ul {
 .container-login {
 	background-color: #FFFEF8;
 	height:1024px;
-	margin: 0px;
 	padding: 0px;
 }
 

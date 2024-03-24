@@ -187,6 +187,7 @@ function gestionModal(){
     validateFile();
     postNewWork();
     createOptionsCategory();  
+    disabledBtnValidate();
 }
 
 function openModal1 (){
@@ -339,6 +340,18 @@ function resetModal2() {
         uploadForm.style.display = "none"
         const iconeRetour = document.getElementById("return");
         iconeRetour.style.display = "none"
+        const imagePreview = document.querySelector('.image-preview');
+        imagePreview.src = '';
+        const titleInput = document.getElementById('title');
+        titleInput.value = '';
+        const categorySelect = document.getElementById('category');
+        categorySelect.selectedIndex = 0;
+        const iconEditFile = document.querySelector('.fa-image');
+        iconEditFile.style.display = 'flex';
+        const labelAddPhoto = document.querySelector('.label-add-photo');
+        labelAddPhoto.style.display = 'flex';
+        const textInputFile = document.querySelector('.add-file p');
+        textInputFile.style.display = 'flex';
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                       //
@@ -517,6 +530,30 @@ function fileReader(file) {
 
 // Actions principales
 
+
+const disabledBtnValidate = function () {
+    const photoForm = document.getElementById('file-input');
+    const titleForm = document.getElementById('title');
+    const categoryForm = document.getElementById('category');
+    const btnValidate = document.querySelector('.btn-validate');
+  
+    // Vérification des champs, s'ils sont vides ou non
+    if (photoForm.value.trim() === "" || titleForm.value.trim() === "" || categoryForm.value.trim() === "") {
+        btnValidate.disabled = true 
+        btnValidate.style.background = "#A7A7A7";
+        btnValidate.style.cursor = "default"
+    } else {
+        btnValidate.disabled = false; 
+        btnValidate.style.background = "#1D6154";
+        btnValidate.style.cursor = "pointer"
+    }
+  };
+  
+  // Ajout des écouteurs d'événements pour chaque champ de formulaire
+  document.getElementById('file-input').addEventListener('change', disabledBtnValidate);
+  document.getElementById('title').addEventListener('change', disabledBtnValidate);
+  document.getElementById('category').addEventListener('change', disabledBtnValidate);
+  
 gestionModal();
 
 
