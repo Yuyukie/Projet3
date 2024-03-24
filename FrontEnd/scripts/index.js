@@ -298,8 +298,6 @@ function openModal2 (){
         areaModalVue2.style.display = "none"
         const validerPhoto = document.getElementById("add-photo");
         validerPhoto.style.display = "none";
-        const valider = document.getElementById("btn-validate");
-        valider.style.display = "flex";
         const uploadForm = document.getElementById("add-work");
         uploadForm.style.display = "flex"
         const iconeRetour = document.getElementById("return");
@@ -316,8 +314,6 @@ function returnModal1 (){
         areaModalVue2.style.display = "flex"
         const validerPhoto = document.getElementById("add-photo");
         validerPhoto.style.display = "flex";
-        const valider = document.getElementById("btn-validate");
-        valider.style.display = "none";
         validerPhoto.style.backgroundColor = "#1D6154";
         const uploadForm = document.getElementById("add-work");
         uploadForm.style.display = "none"
@@ -333,8 +329,6 @@ function resetModal2() {
         areaModalVue2.style.display = "flex"
         const validerPhoto = document.getElementById("add-photo");
         validerPhoto.style.display = "flex";
-        const valider = document.getElementById("btn-validate");
-        valider.style.display = "none";
         validerPhoto.style.backgroundColor = "#1D6154";
         const uploadForm = document.getElementById("add-work");
         uploadForm.style.display = "none"
@@ -342,6 +336,7 @@ function resetModal2() {
         iconeRetour.style.display = "none"
         const imagePreview = document.querySelector('.image-preview');
         imagePreview.src = '';
+        imagePreview.style = "none"
         const titleInput = document.getElementById('title');
         titleInput.value = '';
         const categorySelect = document.getElementById('category');

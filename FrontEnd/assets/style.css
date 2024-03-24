@@ -414,7 +414,7 @@ footer nav ul {
 /*Gestion du css de la modal vue 2*/
 
 #add-work {
-	display: flex;
+	display: none;
 	width: 100%;
 	flex-direction: column;
 	align-items: center;
@@ -494,13 +494,14 @@ footer nav ul {
 }
 
 .btn-validate {
-	display: none;
-	position: relative;
-	justify-content: center;
+
+	position: absolute;
 	background-color: #A7A7A7;
 	color: white;
 	border: none;
 	cursor: pointer;
+	bottom: 55px;
+	right: 198px;
 	font-family: "Syne";
 	font-style: normal;
 	font-size: 14px;
