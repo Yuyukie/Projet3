@@ -109,34 +109,35 @@ function gestionFilter() {
 }
 
 function filterByCategory(categoryId, works) {
-    const sectionProjet = document.querySelector('.gallery');
-    if (sectionProjet) {
-        console.log('Bouton filtre sélectionné :', categoryId);
-        // Masquer tous les projets par défaut
-        const projetElements = document.querySelectorAll('.gallery > figure');
-        projetElements.forEach(element => {
-            element.style.display = 'none';
-        });
+    const area = document.querySelector(".gallery");
+    cleanArea(area); // Nettoyer le contenu de la zone spécifiée (gallery)
 
-        // Afficher les projets de la catégorie sélectionnée ou tous les projets si "Tous" est sélectionné
+    if (area) {
         works.forEach(work => {
-            const projetElement = document.querySelector(`[data-id="${work.id}"]`);
-            
             if (categoryId === 'Tous' || work.category.id === categoryId) {
-                if (projetElement) {
-                    projetElement.style.display = 'block'; // Afficher les projets correspondants au filtre sélectionné
-                    console.log('Projet affiché :', work.id);
-                    console.log('Projet Catégorie :', work.category.id);
-                    console.log('Projet Element :', projetElement);
-                }
-            } else {
-                if (projetElement) {
-                    projetElement.style.display = 'none'; // Masquer les projets qui ne correspondent pas à la catégorie sélectionnée
-                }
+                // Générer et ajouter les éléments correspondants à la catégorie sélectionnée
+                const figure = document.createElement("figure");
+                figure.classList.add(`figure-category-${work.category.id}`); // Utilisation de l'ID de la catégorie
+                figure.dataset.id = work.id;
+
+                // Création d'un élément img pour afficher l'image du projet
+                const imgWorks = document.createElement("img");
+                imgWorks.src = work.imageUrl;
+
+                // Création d'un élément figcaption pour afficher le titre du projet
+                const figcaption = document.createElement("figcaption");
+                figcaption.innerText = work.title;
+
+                // Attache des éléments img et figcaption à l'élément figure
+                figure.appendChild(imgWorks); 
+                figure.appendChild(figcaption);
+                // Ajout de l'élément figure à l'élément areaProject dans le DOM
+                area.appendChild(figure);
             }
         });
     }
 }
+
 
 function editorMode () {
     const utilisateurAuthentifier = window.localStorage.getItem("token");
@@ -174,7 +175,7 @@ editorMode();
 ///////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                       //
 //                                    Gestion Admin                                      //
-//                                  Gestion de la modale                                 //
+//                                Gestion de la modale                                   //
 //                                                                                       //
 ///////////////////////////////////////////////////////////////////////////////////////////
 
