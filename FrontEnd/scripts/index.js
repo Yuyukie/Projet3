@@ -87,8 +87,11 @@ function gestionFilter() {
             });
             filterContainer.appendChild(allButton);
 
-            // Créer les boutons de filtre pour chaque catégorie unique
-            uniqueCategoryIds.forEach(categoryId => {
+            // Convertir l'ensemble en un tableau pour pouvoir le trier
+            const sortedCategoryIds = Array.from(uniqueCategoryIds).sort((a, b) => a - b);
+
+            // Créer les boutons de filtre pour chaque catégorie unique dans l'ordre trié
+            sortedCategoryIds.forEach(categoryId => {
                 const button = document.createElement('button');
                 button.classList.add('filter-button');
                 
@@ -349,6 +352,8 @@ function resetModal2() {
         textInputFile.style.display = 'flex';
         disabledBtnValidate();
 }
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                       //
 //                                    Gestion Admin                                      //
