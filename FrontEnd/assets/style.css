@@ -615,6 +615,9 @@ button[type="submit"]:hover {
 	
 }
 
+.login-footer nav{
+	margin-right: 107px;
+}
 .login-footer ul, li {
 	margin: 0px;
 }
